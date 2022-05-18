@@ -22,7 +22,6 @@
           <button @click="toggleForm('signUp')"  :class="{'btn--current':!isVisible('signIn')}" class="btn btn-dark opacity-25 rounded-0 py-3 no-highlight" type="button">Sign Up</button>
         </div>
       </div><!-- flexbox ends here -->
-
       <SignIn v-if="isVisible('signIn')"/>
       <SignUp v-else />
 
@@ -57,6 +56,7 @@ btn--current
     opacity: 1 !important;
     background-color: transparent;
     border-top: 2px solid var(--primary);
+    transition: all .2s;
   }
 
   .landingModal{

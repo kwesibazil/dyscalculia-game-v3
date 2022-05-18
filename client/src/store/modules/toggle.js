@@ -14,8 +14,8 @@ export default{
   },
   getters: {
     isVisible: state => elem => state[elem],
-    isHidden: state => id => state.pwdIcon[id]
-    
+    isHidden: state => id => state.pwdIcon[id],
+    inputType: state => id => state.inputType[id]    
   },
   mutations: {
     toggleModal (state, form){
@@ -29,7 +29,7 @@ export default{
     },
 
     toggleInputType(state, data){
-      console.log(state.inputType[data[0]]);
+      console.log('hit');
       state.inputType[data[0]] = data[1]
       state.pwdIcon[data[0]] =  !state.pwdIcon[data[0]]
     },
