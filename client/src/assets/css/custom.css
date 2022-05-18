@@ -1,3 +1,14 @@
+:root {
+  --primary: #3DB2FF;
+  --warning: #FF9601;
+  --fs-7: 0.838rem;
+  --fs-8: 0.738rem;
+  --fs-9: 0.638rem;
+  --fs-10: 0.438rem;
+  --p-6: 3.5rem
+  --m-6: 3.5rem
+}
+
 *{
   margin: 0;
   padding: 0;
@@ -11,12 +22,50 @@ img{
   display: block;
 }
 
+.h-90{
+  height: 80%;
+}
 /*removes bootstrap highlight */
-.no-highlight{                                                                     /*overrides bootstrap default behavior of addition a border on nav-links classes*/
+.no-highlight{                      
   box-shadow:none !important; 
   outline: 0px !important; 
 }
 
 .btn-outline-primary:hover{
   color: #fff;
+}
+
+
+
+.passwordIcon--hidden{
+  display: none;
+}
+
+/*makes input element transparent*/
+.inputIcon{
+  opacity: 1;
+  position: absolute;
+  z-index: 1;
+  left: 10px;
+  top: 8px;
+}
+
+.passwordIcon{
+  opacity: 1;
+  position: absolute;
+  z-index: 1;
+  right: 10px;
+  top: 8px;
+}
+
+
+/*Additional Font size*/
+.fs-7{
+  font-size: var(--fs-7);
+}.fs-8{
+  font-size: var(--fs-8);
+}.fs-9{
+  font-size: var(--fs-9);
+}.fs-10{
+  font-size: var(--fs-10);
 }

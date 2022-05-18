@@ -1,6 +1,6 @@
 <template>
-  <div class="landingModal shadow bg-light px-3" :class="{'landingModal--active':isVisible('landingModal')}">
-    <div class="d-flex align-items-center py-3">
+  <div class="landingModal shadow bg-light px-4" :class="{'landingModal--active':isVisible('landingModal')}">
+    <div class="d-flex align-items-center py-4">
       <div class="flex-grow-1 text-center">
         <h1 class="fs-6 fw-bold mb-0">Please login to continue</h1>
       </div>
@@ -11,43 +11,59 @@
             <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
           </svg>
         </button>
-      </div>
+      </div><!-- close button ends here -->
     </div><!-- flexbox ends here -->
-    <div class="bg-white">
+    <div class="bg-white border border-top-0 mb-5">
       <div class="d-flex">
         <div class="d-grid w-50">
-          <button class="btn btn-outline-secondary rounded-0 no-highlight" type="button">Sign Up</button>
+          <button @click="toggleForm('signIn')" :class="{'btn--current':isVisible('signIn')}" class="btn btn-dark opacity-25 rounded-0 py-3 no-highlight" type="button">Sign In</button>
         </div>
         <div class="d-grid w-50">
-          <button class="btn btn-primary text-white rounded-0 no-highlight" type="button">Sign In</button>
+          <button @click="toggleForm('signUp')"  :class="{'btn--current':!isVisible('signIn')}" class="btn btn-dark opacity-25 rounded-0 py-3 no-highlight" type="button">Sign Up</button>
         </div>
       </div><!-- flexbox ends here -->
 
-      
+      <SignIn v-if="isVisible('signIn')"/>
+      <SignUp v-else />
 
     </div><!-- form container ends here -->
   </div><!-- container ends here -->
 </template>
+btn--current
 
 
 <script>
   import { mapGetters, mapMutations  } from 'vuex'
+  import SignIn from '@/components/forms/signin.vue'
+  import SignUp from '@/components/forms/signup.vue'
 
   export default {
     name: 'LandingModal',
     computed: mapGetters(['isVisible']),
-    methods: mapMutations(['toggleModal'])
+    methods: mapMutations(['toggleModal', 'toggleForm']),
+    components:{
+      SignIn,
+      SignUp
+    },
   }
 
 </script>
 
 
 <style scoped>
+  .btn--current {
+    border: none;
+    color: black;
+    opacity: 1 !important;
+    background-color: transparent;
+    border-top: 2px solid var(--primary);
+  }
+
   .landingModal{
     left: 0;
     right: 0;
-    height: 75%;
-    /* max-height: 75%; */
+    min-height: 500px;
+    max-height: 85%;
     z-index: 17;
     max-width: 90%;
     overflow:hidden; 

@@ -7,8 +7,8 @@
         <img src="@/assets/img/dyscalculia.png" class="img-fluid" alt="logo" width="150">
       </button>
       <div><!-- modal trigger -->
-        <button @click="toggleModal" type="button" class="btn btn-outline-primary me-3 hvr-glow">Sign Up</button>
-        <button @click="toggleModal" type="button" class="btn btn-primary text-white hvr-glow">Sign In</button>
+        <button @click="toggleModal('signUp')" type="button" class="btn btn-outline-primary me-3 hvr-glow">Sign Up</button>
+        <button @click="toggleModal('signIn')" type="button" class="btn btn-primary text-white hvr-glow">Sign In</button>
       </div>
     </div><!-- modal-links ends here -->
     <div class="text-center pt-5">
