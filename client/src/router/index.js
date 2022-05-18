@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 
 const routes = [
-  { path: '/', name: 'home', component: () => import('../views/LandingView.vue')},
-  { path: '/signin', name: 'signin', component: () => import('../views/SignIn.vue')},
-  { path: '/signup', name: 'signup', component: () => import('../views/SignUp.vue')},
-  { path: '/dashboard', name: 'dashboard', component: () => import('../views/DashboardView.vue')}, 
+  { path: '/', name: 'home', component: () => import('../views/landing-view.vue')},
+  { path: '/dashboard', name: 'dashboard', component: () => import('../views/dashboard-view.vue')}
+  //{ path: '/signin', name: 'signin', component: () => import('../views/signin.vue')}
+  // { path: '/signup', name: 'signup', component: () => import('../views/signup.vue')},
 ]
 
 const router = createRouter({

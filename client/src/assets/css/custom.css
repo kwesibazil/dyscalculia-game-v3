@@ -10,3 +10,13 @@
 img{
   display: block;
 }
+
+/*removes bootstrap highlight */
+.no-highlight{                                                                     /*overrides bootstrap default behavior of addition a border on nav-links classes*/
+  box-shadow:none !important; 
+  outline: 0px !important; 
+}
+
+.btn-outline-primary:hover{
+  color: #fff;
+}
