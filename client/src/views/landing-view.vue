@@ -36,7 +36,7 @@
 
 
 <style scoped>
- .landing__p{
+  .landing__p{
     max-height: 145px;
     width: 90%
   }

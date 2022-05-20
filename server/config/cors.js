@@ -1,7 +1,8 @@
 const corsOptions = {
-  // origin: 'http://localhost:8080', 
-  // methods:  ['GET', 'PUT', 'POST', 'DELETE'],
-  // allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  origin: 'http://localhost:8080', 
+  methods:  ['GET', 'PUT', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Credentials' ],
 }
 
 module.exports = {corsOptions}

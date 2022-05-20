@@ -6,9 +6,7 @@ const passport = require('passport')
 const {checkLoggedIn}  = require('../middleware/authentication')
 
 /** @route /api/v2/users */
-router.get('/home', controller.home)
 router.get('/logout', controller.logout)
-router.get('/landing', controller.landing)
 router.get('/login-success', controller.loginSuccess)
 router.get('/login-failure', controller.loginFailure)
 router.post('/login',  validateLogin, passport.authenticate('local', {failureRedirect: 'login-failure', successRedirect: 'login-success'}))

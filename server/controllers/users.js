@@ -3,10 +3,18 @@ const {StatusCodes} = require('http-status-codes')
 const {genPassword}  = require('../helpers/passwordUtils.js')
 
 
-const home = (req, res) => {res.status(StatusCodes.OK).json({'msg': 'already login'})}
-const landing = (req, res) => {res.status(StatusCodes.OK).json({'msg': 'landing'})}
-const loginSuccess = (req, res) => {res.status(StatusCodes.OK).json({'msg': 'Successfully logged in'})}
-const loginFailure = (req, res) =>{res.status(StatusCodes.UNAUTHORIZED).json({'msg': 'Incorrect email or password'})}
+const loginFailure = (req, res) =>{res.status(StatusCodes.UNAUTHORIZED).json({
+  'msg': 'Incorrect email or password',
+  'isAuthenticated': req.isAuthenticated()
+})}
+
+const loginSuccess = (req, res) => {
+  console.log('is authenticated  ---' + req.isAuthenticated());
+
+  res.status(StatusCodes.OK).json({
+  'msg': 'Successfully logged in', 
+  'isAuthenticated': req.isAuthenticated()
+})}
 
 const logout = (req, res) =>{ 
   req.logOut()
@@ -29,24 +37,14 @@ const register = async (req, res) => {
     img: req.sanitizeData.img,
     userRole: req.sanitizeData.userRole
   })
+    console.log('is authenticated  ---  ' + req.isAuthenticated());
 
   newUser.save()
-    .then(_ => res.status(StatusCodes.CREATED).json({
-      "title": "You have been successfully registered.",
-      "body": "You will be automatically redirected to the home page in 3 seconds"
-    }))
+    .then(_ => res.status(StatusCodes.CREATED).json({"msg": "registration successful."}))
     .catch(err => {
-      res.status(StatusCodes.CONFLICT).json({"msg": err.errors.email.message})
+      res.status(StatusCodes.CONFLICT).json({"err": err.errors.email.message})
     })
 }
 
-
-const controller = {register,  loginFailure, loginSuccess, logout, landing, home}
+const controller = {register,  loginFailure, loginSuccess, logout}
 module.exports = {controller}
-
-
-// "userData": {
-//   "email": result.email,
-//   "userImage": result.img,
-//   "accountType": result.userRole
-// },

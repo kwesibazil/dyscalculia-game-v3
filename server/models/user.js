@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
   }
 },{timestamps: true, collection: "users"})
 
-UserSchema.plugin(uniqueValidator, {message: 'sorry, email already in use.'})
+UserSchema.plugin(uniqueValidator, {message: 'user already exist.'})
 
 module.exports = mongoose.model('User', UserSchema)
 

@@ -15,10 +15,10 @@ const validateRegistration = async (req, res, next) => {
       'string.min': 'Password length must be at least {{#limit}} characters long',
       'string.empty': 'Password is not allowed to be empty',
       "any.required": "Password is required!",
-      'string.pattern.base': 'Password must be 8-30 characters long, with at least one lowercase and one uppercase letter.',
+      'string.pattern.base': 'Password must be 8-30 characters long, with at least one number, one lowercase and one uppercase letter.',
     }),
     img: Joi.string().trim().optional(),
-    userRole: Joi.string().trim().required().valid('guest', 'admin').messages({
+    userRole: Joi.string().trim().optional().valid('guest', 'admin').messages({
       "any.required": "Account type is required!",
       "any.only": "Invalid input"
     })
