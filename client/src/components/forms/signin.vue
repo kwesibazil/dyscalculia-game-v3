@@ -45,7 +45,7 @@
                   'invisible':!feedback('signIn') , 'visible': feedback('signIn')}"
           >
           <div class="flex-grow-1 text-center">
-            <span class="fs-6">{{feedbackMsg}}</span> 
+            <span class="fs-6">{{feedbackMsg('signIn')}}</span> 
           </div>
           <div class="text-end">
             <button @click="closeAlert('signIn')" class="btn p-0" type="button">
@@ -67,22 +67,21 @@
     name: 'signInForm',
     data(){
       return{
-        feedbackMsg: null,
         input: {
           email: null,
           pwd: null
         }
       }
     },
-    computed: mapGetters(['isHidden', 'inputType', 'feedback', 'alertSuccess']),
+    computed: mapGetters(['isHidden', 'inputType', 'feedback', 'feedbackMsg', 'alertSuccess']),
     methods:{
       ...mapMutations(['toggleInputType', 'toggleForm', 'closeAlert']),
       
-      async submitForm(){
-        const res = await this.$store.dispatch('login', this.input)
-        console.log(res);
-        if(res.err)
-          this.feedbackMsg = res.msg
+      /**
+      * @todo sanitize user input on frontend using domPurify
+      */
+      submitForm(){
+        this.$store.dispatch('login', this.input)
       }
     }
   }

@@ -3,11 +3,13 @@ import axiosInstance from "@/helpers/axios-config";
 export default{
   state: {       
     isAuthenticated: false,
-    feedback: { signIn: false, signUp: false },    
+    feedback: { signIn: false, signUp: false }, 
+    feedbackMsg: { signIn: null, signUp: null }, 
     alertSuccess: { signIn: false, signUp: false }     
   },
   getters: {
     feedback: state => id => state.feedback[id],
+    feedbackMsg: state => id => state.feedbackMsg[id],
     alertSuccess: state => id => state.alertSuccess[id]
   },
   mutations: {
@@ -17,43 +19,39 @@ export default{
 
     setAuthentication(state, status){
       state.isAuthenticated = status
+      console.log('authentication status is ' + status);
       // router.replace({ name: "secure" })
     },
 
-    showFeedback(state, payload){                     //payload = [0 = <signIn/signUp>,  1 = <true/false>]
-      state.feedback[payload[0]] = true 
-      state.alertSuccess[payload[0]] = payload[1]   
+    showFeedback(state, data){                     
+      state.feedback[data.form] = true 
+      state.feedbackMsg[data.form] = data.feedbackMsg   
+      state.alertSuccess[data.form] = (data.bootStrap === 'alert-success') ? true : false
     }
   },
   actions: {
-    register({commit}, payload){
-      return axiosInstance.post('/users/register', payload)
-        .then(res => {
-          commit('showFeedback', ['signUp', true])
-          return {msg:res.data.msg, err: false}
-        })
-        .catch(err => {
-          commit('showFeedback', ['signUp', false])
-          if(err.response)
-            return {msg:err.response.data.err, err:true}
-          else                        
-            return{msg:'Registration Failed. Try Again!', err:true}
-        })
+    async register({commit}, payload){
+      try {
+        const res = await axiosInstance.post('users/register', payload)
+        commit('showFeedback', {feedbackMsg: res.data.msg, form: 'signUp', bootStrap: 'alert-success'})
+      } catch (err) {
+        if(err.response && err.response.status !== 500 )
+          commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signUp', bootStrap: 'alert-danger'})
+        else
+          commit('showFeedback', {feedbackMsg: 'Registration Failed. Please Try Again!', form: 'signUp', bootStrap: 'alert-danger'})
+      }
     },
 
-    login({commit}, payload){
-      return axiosInstance.post('/users/login', payload)
-        .then(res => {
-          console.log(res.data);
-          commit('setAuthentication', res.data.isAuthenticated)
-        })
-        .catch(err => {
-          commit('showFeedback', ['signIn', false])
-          if(err.response)
-            return {msg:err.response.data.err, err:true}
-          else                        
-            return{msg:'Login Failed. Try Again!', err:true}
-        })
+    async login({commit}, payload){
+      try {
+        const res = await axiosInstance.post('users/login', payload)
+        commit('setAuthentication', res.data.isAuthenticated)
+      } catch (err) {
+        if(err.response && err.response.status !== 500 )
+          commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signIn', bootStrap: 'alert-danger'})
+        else
+          commit('showFeedback', {feedbackMsg: 'Login Failed. Please Try Again!', form: 'signIn', bootStrap: 'alert-danger'})
+      }
     }
   }
 }

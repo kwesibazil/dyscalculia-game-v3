@@ -1,7 +1,9 @@
-
-const clean = data => {
-  //console.log('implement sanitize data middleware');
-  return data
+/**
+* @todo sanitize user input coming from the frontend
+*/
+const sanitize= (req, data)=> {
+  req.body = data
+  //console.log('******  !!!implement sanitize middleware!!!  ******');
 }
 
-module.exports = {clean}
+module.exports = {sanitize}

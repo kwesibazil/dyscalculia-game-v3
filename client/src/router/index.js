@@ -2,17 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   { path: '/', name: 'home', component: () => import('../views/landing-view.vue')},
-  { 
-    path: '/dashboard', 
-    name: 'dashboard', 
-    component: () => import('../views/dashboard-view.vue'),
-    beforeEnter: (to, from, next) => {
-      if(true){
-        console.log(this.$store.state);
-        next()
-      }
-    }
-  }
+  
+  // { 
+  //   path: '/dashboard', 
+  //   name: 'dashboard', 
+  //   component: () => import('../views/dashboard-view.vue'),
+  //   beforeEnter: (to, from, next) => {
+  //     if(true){
+  //       console.log(this.$store.state);
+  //       next()
+  //     }
+  //   }
+  // }
   
 ]
 

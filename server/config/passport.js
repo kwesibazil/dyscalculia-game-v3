@@ -12,7 +12,7 @@ const customFields = {
   passwordField: 'pwd'
 }
 /**
- * @description this function is called when the `passport.authenticate()` method is called the user registration route.
+ * @description this function is called when the `passport.authenticate()` method is called the user login route.
  * @summary
  *    validates the user using the email and password provided
  *    if successful, attaches a passport property to the req.session object <req.session.passport>
@@ -24,7 +24,7 @@ passport.use(new LocalStrategy(customFields,  function(email, password, callback
   User.findOne({email: email})
     .then(user => {
       if(!user) return callback(null, false, {msg: 'Incorrect username or password'})
-      const isValid = validPassword(password, user.hash)
+      const isValid = validPassword (password, user.hash)
       if(!isValid) return callback(null, false, {msg: 'Incorrect username or password'})
       return callback(null, user)
     })

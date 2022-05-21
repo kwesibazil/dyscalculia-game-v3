@@ -25,11 +25,6 @@ server.use(passport.session())  //uses the user property found on req.session.pa
                                 //then assigned the user object to the `req` object` to be can be accessed within the route 
 
 //routes
-server.use('/api/v2/users/test', (req, res) =>{
-    console.log(req.body);
-    res.status(200).json({data: req.body})
-})
-
 server.use('/api/v2/users', require('./routes/user'))
 
 //error handling
@@ -37,5 +32,5 @@ server.use(require('./middleware/errorHandler'))
 
 server.listen(process.env.PORT || 3030, err => {
   if(err)console.log(`Internal Server Error ${err.message}`)
-  console.log(`\nServer up and running on Port ${process.env.PORT} || 3030`)
+  console.log(`\nServer running on DEV-PORT 3030 || PROD-Port ${process.env.PORT}`)
 })

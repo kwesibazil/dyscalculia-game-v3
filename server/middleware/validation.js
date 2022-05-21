@@ -1,6 +1,6 @@
 const Joi = require('joi')
 const {BadRequestError, UnauthorizedError, } = require('../errors')
-const {clean} = require('./sanitize')
+const {sanitize} = require('./sanitize')
 
 
 const validateRegistration = async (req, res, next) => {
@@ -17,9 +17,7 @@ const validateRegistration = async (req, res, next) => {
       "any.required": "Password is required!",
       'string.pattern.base': 'Password must be 8-30 characters long, with at least one number, one lowercase and one uppercase letter.',
     }),
-    img: Joi.string().trim().optional(),
     userRole: Joi.string().trim().optional().valid('guest', 'admin').messages({
-      "any.required": "Account type is required!",
       "any.only": "Invalid input"
     })
   }).error(err => {
@@ -29,7 +27,9 @@ const validateRegistration = async (req, res, next) => {
       throw new BadRequestError(err)
   })
 
-  await schema.validateAsync(req.body, {abortEarly: true}).then(data => req.sanitizeData = clean(data))
+  await schema.validateAsync(req.body, {abortEarly: true})
+    .then(data => sanitize(req.body, data))
+
   next()
 }
 
@@ -40,7 +40,9 @@ const validateLogin = async (req, res, next) => {
     pwd: Joi.string().trim().min(8).max(30).regex(/^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])[\w\s@$!%*#^?&]{8,30}$/).required()
   }).error(_ => {throw new UnauthorizedError('Incorrect email or password.')})
 
-  await schema.validateAsync(req.body, {abortEarly: true}).then(data => req.sanitizeData = clean(data))
+  await schema.validateAsync(req.body, {abortEarly: true})
+    .then(data => sanitize(req.body, data))
+
   next()
 }
 
