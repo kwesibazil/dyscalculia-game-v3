@@ -1,33 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store/index'
 
 const routes = [
-  { path: '/', name: 'home', component: () => import('../views/landing-view.vue')},
-  
-  // { 
-  //   path: '/dashboard', 
-  //   name: 'dashboard', 
-  //   component: () => import('../views/dashboard-view.vue'),
-  //   beforeEnter: (to, from, next) => {
-  //     if(true){
-  //       console.log(this.$store.state);
-  //       next()
-  //     }
-  //   }
-  // }
-  
+  { path: '/', name:'home', component: () => import('@/views/landing-view.vue'),},
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    meta: { requiresAuth: true },
+    component: () => import('@/views/dashboard-view.vue'),
+
+    beforeEnter: (to, from, next) => {
+      if (to.meta.requiresAuth && to.name !== 'home' && store.getters.isLoggedIn)
+        next()
+      else
+        next({ name: 'home' })
+    }
+  }
 ]
 
-// if (
-//   // make sure the user is authenticated
-//   !isAuthenticated &&
-//   // ❗️ Avoid an infinite redirect
-//   to.name !== 'Login'
-// ) {
-//   if(store.state.authenticated == false) {
-//     next(false);
-// } else {
-//     next();
-// }
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

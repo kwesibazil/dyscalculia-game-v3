@@ -25,7 +25,7 @@ server.use(passport.session())  //uses the user property found on req.session.pa
                                 //then assigned the user object to the `req` object` to be can be accessed within the route 
 
 //routes
-server.use('/api/v2/users', require('./routes/user'))
+server.use('/api/v2/users', require('./routes/auth'))
 
 //error handling
 server.use(require('./middleware/errorHandler'))

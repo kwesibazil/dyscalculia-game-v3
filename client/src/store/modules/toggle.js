@@ -1,8 +1,8 @@
 export default{
   state: {       
     signIn: true,                                                 //controls the current form displayed
-    modalBox: true,                                               //controls modal toggle
-    landingModal: true,                                           //controls landingPage modal form
+    modalBox: false,                                               //controls modal toggle
+    landingModal: false,                                           //controls landingPage modal form
     pwdIcon: { signIn: true, signUp: true },                      //controls icon toggle for the password input field
     inputType: {signIn: 'password', signUp: 'password'},          //controls the password field type attribute toggle {password/text}
   },

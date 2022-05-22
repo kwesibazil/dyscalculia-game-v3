@@ -1,8 +1,7 @@
 import { createStore } from 'vuex'
 
 import toggle from './modules/toggle'
-import user from './modules/user'
-
+import auth from './modules/auth'
 
 export default createStore({
   state: {
@@ -14,7 +13,7 @@ export default createStore({
   actions: {
   },
   modules: {
-    toggle,
-    user
+    auth,
+    toggle
   }
 })

@@ -1,7 +1,6 @@
 const User = require('../models/user')
 const {StatusCodes} = require('http-status-codes')
 const {genPassword}  = require('../helpers/passwordUtils.js')
-//const passport = require('passport')
 
 const loginFailure = (req, res) =>{
   res.status(StatusCodes.UNAUTHORIZED).json({
@@ -22,6 +21,8 @@ const logout = (req, res) =>{
 
 
 /** 
+ * @todo implement register admin user functionality 
+ * 
  * @route POST api/v2/user/register
  * @returns http status code (409 || 201) and json msg
  * @summary hash password using genPassword function, then adds user details to the database
