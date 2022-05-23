@@ -1,18 +1,11 @@
-const {UnauthorizedError} = require('../errors/unauthorized')
+const {UnauthorizedError, NotFoundError} = require('../errors')
 
-const checkAuth = (req, res, next) =>{
+const checkLoggedIn = (req, res, next) =>{
+  console.log(`this is checkloggedIn ---> ${req.isAuthenticated()}` );
   if(req.isAuthenticated())
     next()
   else
     throw new UnauthorizedError()
-}
-
-
-const checkLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated())
-    return res.redirect('logout')
-  
-  next()
 }
 
 const checkAdmin = (req, res, next) => {
@@ -22,4 +15,27 @@ const checkAdmin = (req, res, next) => {
     throw new UnauthorizedError()
 }
 
-module.exports = {checkAdmin, checkAuth, checkLoggedIn}
+
+const validRoute = (req, res, next) => {
+  let err= `Route does not exist`;
+  if(req.originalUrl === "/api/v2/users" || url === "/api/v2/dashboard")
+    next()
+  else
+    throw new NotFoundError(err)
+}
+
+
+
+module.exports = {checkAdmin,  checkLoggedIn, validRoute }
+
+
+
+
+
+
+
+// const checkLoggedIn = (req, res, next) => {
+//   if (req.isAuthenticated())
+//     return res.redirect('logout')
+//   next()
+// }

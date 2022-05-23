@@ -46,6 +46,9 @@ const validateLogin = async (req, res, next) => {
   next()
 }
 
+
+
+
 module.exports = {validateRegistration, validateLogin}
 
 

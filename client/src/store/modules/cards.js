@@ -1,5 +1,4 @@
 import axiosInstance from "@/config/axios-config";
-import axios from 'axios'
 
 export default{
   state: {
@@ -20,10 +19,11 @@ export default{
   actions: {
     async fetchCards({commit}) {
       try {
-        const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
+        console.log('before axios');
+        const res = await axiosInstance.get('dashboard/cards')
         commit('setCards', res.data)
       } catch (err) {
-        console.log(err);
+        console.log(err.response);
       }
     }
   }

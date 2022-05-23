@@ -10,7 +10,7 @@
     }">
     <swiper-slide v-for="(slideContent, index) in getCards.slice(0, 6)" :key="index" :virtualIndex="index">
         <div class="card border border-2 border-secondary text-white">
-          <img src="@/assets/img/card00.jpg" class="card-img" alt="..."  style="max-height: 220px; min-height: 190px;" >
+          <img :src="slideContent.img" class="card-img" alt="..."  style="max-height: 220px; min-height: 190px;" >
           <div class="card-img-overlay">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -56,3 +56,26 @@
     /*  */
   }
 </style>
+
+
+<!-- <template>
+  <div>
+    <h2 class="news__header d-md-none">Top Stories</h2>
+    <div class="d-flex flex-column flex-md-row flex-md-wrap">
+      <div v-for="(article, index) in getNews('crime').slice(start, end)" :key="index" class="col-12 col-md-6 col-lg-4">
+        <div ref="index" class="news__card shadow">
+          <div class="news__img col-3 col-md-12 me-2 me-md-0">
+            <img :src="article.urlToImage" :alt="article.title" >
+          </div>
+          <div class="news__body col-9 col-md-12">
+            <h5 class="news__title">{{article.title}}</h5>
+            <p class="news__text m-0">{{article.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <router-link type="button" class="mx-auto btn btn-link" to="/news">View more</router-link>
+    </div>  
+  </div>
+</template> -->

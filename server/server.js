@@ -26,9 +26,11 @@ server.use(passport.session())  //uses the user property found on req.session.pa
 
 //routes
 server.use('/api/v2/users', require('./routes/auth'))
+server.use('/api/v2/dashboard', require('./routes/dashboard'))
 
-//error handling
-server.use(require('./middleware/errorHandler'))
+//404 Error && error handling
+server.use(require('./middleware/not-found'))
+server.use(require('./middleware/error-handler'))
 
 server.listen(process.env.PORT || 3030, err => {
   if(err)console.log(`Internal Server Error ${err.message}`)
