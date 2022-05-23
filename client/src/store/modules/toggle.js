@@ -1,5 +1,6 @@
 export default{
-  state: {       
+  state: {    
+    sideNav: false,   
     signIn: true,                                                 //controls the current form displayed
     modalBox: false,                                               //controls modal toggle
     landingModal: false,                                           //controls landingPage modal form
@@ -8,12 +9,18 @@ export default{
   },
 
   getters: {
+    collapseSideNav: state => state.sideNav,
     isVisible: state => elem => state[elem],
     isHidden: state => id => state.pwdIcon[id],
     inputType: state => id => state.inputType[id],
   },
   
   mutations: {
+    toggleSideNav (state) {
+      console.log('toggle side nav');
+      state.sideNav = !state.sideNav
+    },
+
     toggleModal (state, form){
       state.modalBox = !state.modalBox
       state.landingModal = !state.landingModal

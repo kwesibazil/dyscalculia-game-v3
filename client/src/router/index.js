@@ -2,7 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store/index'
 
 const routes = [
-  { path: '/', name:'home', component: () => import('@/views/landing-view.vue'),},
+  { path: '/',
+    name:'home', 
+    component: () => import('@/views/landing-view.vue'),
+    beforeEnter: (to, from, next) =>{
+      if(store.state.isLoggedIn === true)
+        next({name: 'dashboard'})
+      else
+        next()
+    }
+  },
   {
     path: '/dashboard',
     name: 'dashboard',
@@ -10,7 +19,7 @@ const routes = [
     component: () => import('@/views/dashboard-view.vue'),
 
     beforeEnter: (to, from, next) => {
-      if (to.meta.requiresAuth && to.name !== 'home' && store.getters.isLoggedIn)
+      if (to.meta.requiresAuth &&  to.name !== 'home' && store.state.isLoggedIn === true)
         next()
       else
         next({ name: 'home' })
