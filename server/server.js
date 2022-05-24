@@ -14,7 +14,7 @@ const server = express()
 
 // //global middleware
 server.use(express.json());
-//server.use(morgan('dev'))
+server.use(morgan('dev'))
 server.use(cors(corsOptions))
 server.use(session(sessionOptions))
 

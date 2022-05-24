@@ -3,7 +3,7 @@ const {StatusCodes} = require('http-status-codes')
 const {isEmpty} = require('../helpers/utilities')
 
 const fetchCards = async (req, res) =>{
-  console.log('in cards controller');
+  console.log(req.isAuthenticated());
   const result = await Card.find({}).limit()
   if(!isEmpty(result))
     res.status(StatusCodes.OK).json(result)  

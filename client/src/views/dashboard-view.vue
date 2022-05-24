@@ -3,7 +3,7 @@
     <TopNav />
     <div class="d-flex flex-grow-1 mt-1 height ">
       <SideNav class=""/>
-      <Layout class="flex-grow-1 h-100 overflow-auto"/>
+      <DashboardLayout class="flex-grow-1 h-100 overflow-auto"/>
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
 <script>
   import TopNav from '@/components/navbars/TopNav.vue'
   import SideNav from '@/components/navbars/SideNav.vue'
-  import Layout from '@/components/main/layout.vue'
+  import DashboardLayout from '@/components/layouts/dashboard-layout.vue'
 
   export default {
     name: 'dashboard',
@@ -20,7 +20,7 @@
       this.$store.dispatch('fetchCards')
     },
     components: {
-      Layout,
+      DashboardLayout,
       SideNav,
       TopNav
     },

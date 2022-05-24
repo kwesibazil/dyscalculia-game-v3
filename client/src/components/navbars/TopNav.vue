@@ -17,20 +17,17 @@
           </svg>
           <span class="fs-7 text-muted">{{today}}</span>
         </div>
-        <div class="d-flex align-items-center justify-content-end col">
-          <h3 class="fs-7 m-0 text-muted">welcome</h3>
-          <img src="@/assets/img/user-profile.jpg" alt="profile image" class="rounded-circle border border-secondary ms-2" width="31px" height="27px">
-          <span class="d-none d-lg-block mx-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="2" height="30" viewBox="0 0 2 30">
-              <line id="Line_13" data-name="Line 13" y2="30" transform="translate(1)" fill="none" stroke="#adb5bd" stroke-width="2"/>
-            </svg>
-          </span>
-          <router-link class="d-none d-lg-block fs-7 m-0 text-danger text-decoration-none hvr-shrink" to="/">logout</router-link>
+        <div class="d-flex align-items-center justify-content-end col mx-2">
+          <h3 class="d-none d-sm-block fs-7 m-0 text-muted ">welcome</h3>
+          <img  src="@/assets/img/user-profile.jpg" class="rounded-circle border border-secondary ms-2 " alt="dyscalculia" width="31" height="25" >
         </div>
       </div>
     </nav><!-- nav container ends here -->
   </header><!-- header ends here -->
 </template>
+
+
+
 
 <script>
 import {mapMutations} from 'vuex'
