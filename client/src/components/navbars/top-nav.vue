@@ -3,10 +3,10 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-2">
       <div class="container-fluid">
         <div class="d-flex justify-content-between justify-content-lg-start col">
-          <button @click="toggleSideNav" class="navbar-toggle me-3" type="button" aria-expanded="false" aria-label="Toggle navigation">
+          <button @click="toggleSideNav" class="navbar-toggle me-3" type="button">
             <span class="navbar-toggler-icon "></span>
           </button>
-          <router-link to="/dashboard" class="my-auto hvr-grow">
+          <router-link to="/" class="my-auto hvr-grow">
             <img  src="@/assets/img/sm-logo.png" class="img-fluid" alt="dyscalculia" width="28">
           </router-link>
         </div>
@@ -55,15 +55,6 @@ export default{
     line-height: 1;
     background-color: transparent;
     border: 1px solid transparent;
-    border-radius: 0.25rem;
-    transition: box-shadow .15s ease-in-out;
-  }
-  .navbar-toggle:hover {
-    padding: 0.188rem 0.313rem;
-    font-size: 1rem;
-    line-height: 1;
-    background-color: var(--grey);
-    border: 1px solid var(--grey);
     border-radius: 0.25rem;
     transition: box-shadow .15s ease-in-out;
   }

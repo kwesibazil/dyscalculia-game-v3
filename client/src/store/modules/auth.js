@@ -1,7 +1,5 @@
 import router from '@/router/index'
 import axiosInstance from "@/config/axios-config";
-// use to access state in another module console.log(this.state.<module>.<state>);
-
 
 export default{
   state: {   
@@ -12,9 +10,18 @@ export default{
   getters: {
     feedback: state => id => state.feedback[id],
     feedbackMsg: state => id => state.feedbackMsg[id],
-    alertSuccess: state => id => state.alertSuccess[id]
+    alertSuccess: state => id => state.alertSuccess[id],
+    isLoggedIn: (state, getters, rootState) => rootState.isLoggedIn
   },
   mutations: {
+    setAuthentication(state, payload){
+      payload.rootState.isLoggedIn = payload.status
+      router.push({ name: 'dashboard' }) 
+    },
+    userLogout(state, status, rootState){
+      rootState.isLoggedIn = status
+      router.push({ name: 'welcome' }) 
+    },
     logout(state){
       state.isAuthenticated = !state.isAuthenticated
       console.log(`this is logout ${state.isAuthenticated}`);
@@ -72,10 +79,10 @@ export default{
     *        else
     *          user will be provided with an appropriate feedback msg
      */
-    async login({commit}, payload){
+    async login({commit, rootState}, payload){
       try {
         const res = await axiosInstance.post('users/login', payload)
-        commit('setAuthentication', res.data.isAuthenticated, { root: true })     //mutation in store/index.js <rootState>
+        commit('setAuthentication', {status: res.data.isAuthenticated, rootState})     //mutation in store/index.js <rootState>
       } catch (err) {
         console.log(err);
         if(err.response && err.response.status !== 500 )
@@ -90,3 +97,6 @@ export default{
     }
   }
 }
+
+
+// use to access state in another module console.log(this.state.<module>.<state>);

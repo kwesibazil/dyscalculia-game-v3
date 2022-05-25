@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column px-2 px-md-4 h-100 ">
+  <div class="d-flex flex-column px-2 flex-grow-1 overflow-auto px-md-4 h-100 ">
     <section class="mt-3 mb-1 ">
       <div class="d-flex justify-content-between ">
         <h2 class="fs-5 fw-bold">Overview</h2>
@@ -22,10 +22,13 @@
 import SwiperCard from '@/components/cards/swiper-card.vue'
 import GameCard from '@/components/cards/game-card.vue'
   export default {
-    name: 'Layout',
+    name: 'dashboard-layout',
     components: {
       GameCard,
       SwiperCard
+    },
+    created() {
+      this.$store.dispatch('fetchCards')
     },
   }
 </script>

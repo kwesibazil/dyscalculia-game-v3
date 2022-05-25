@@ -3,24 +3,20 @@
     <TopNav />
     <div class="d-flex flex-grow-1 mt-1 height ">
       <SideNav class=""/>
-      <DashboardLayout class="flex-grow-1 h-100 overflow-auto"/>
+      
+      <router-view/>
     </div>
   </div>
 </template>
 
 
 <script>
-  import TopNav from '@/components/navbars/TopNav.vue'
-  import SideNav from '@/components/navbars/SideNav.vue'
-  import DashboardLayout from '@/components/layouts/dashboard-layout.vue'
+  import TopNav from '@/components/navbars/top-nav.vue'
+  import SideNav from '@/components/navbars/side-nav.vue'
 
   export default {
-    name: 'dashboard',
-    created() {
-      this.$store.dispatch('fetchCards')
-    },
+    name: 'main-layout',
     components: {
-      DashboardLayout,
       SideNav,
       TopNav
     },

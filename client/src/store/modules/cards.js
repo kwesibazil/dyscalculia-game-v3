@@ -19,7 +19,6 @@ export default{
   actions: {
     async fetchCards({commit}) {
       try {
-        console.log('before axios');
         const res = await axiosInstance.get('dashboard/cards')
         commit('setCards', res.data)
       } catch (err) {
