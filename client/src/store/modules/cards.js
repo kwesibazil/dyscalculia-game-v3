@@ -2,25 +2,36 @@ import axiosInstance from "@/config/axios-config";
 
 export default{
   state: {
-    cards: []
+    games: [],
+    testimonies: []
   },
   getters: {
-    getCards: state => state.cards
+    getCards: state => id => state[id]
   },
+  
   mutations: {
-    setCards: (state, cards) =>{
-      try {
-        cards.forEach(card => state.cards.push(card))
-      } catch (err) {
-        console.log(err);
-      }
+    setGames(state, games) {
+      games.forEach(game => state.games.push(game))
+    },
+    setTestimonies(state, testimonies){
+      testimonies.forEach(testimony => state.testimonies.push(testimony))
     }
   },
+
   actions: {
-    async fetchCards({commit}) {
+    async fetchTestimonies({commit}){
       try {
-        const res = await axiosInstance.get('dashboard/cards')
-        commit('setCards', res.data)
+        const res = await axiosInstance.get('dashboard/testimonies')
+        commit('setTestimonies', res.data)
+      } catch (err) {
+        console.log(err.response);
+      }
+    },
+
+    async fetchGame({commit}) {
+      try {
+        const res = await axiosInstance.get('dashboard/games')
+        commit('setGame', res.data)
       } catch (err) {
         console.log(err.response);
       }

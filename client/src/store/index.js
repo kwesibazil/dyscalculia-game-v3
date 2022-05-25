@@ -23,3 +23,4 @@ export default createStore({
   },
   plugins:[vuexSession.plugin]
 })
+

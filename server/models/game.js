@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const CardSchema = new mongoose.Schema({
+const GameSchema = new mongoose.Schema({
   title: {
     trim: true,
     index: true, 
@@ -25,8 +25,8 @@ const CardSchema = new mongoose.Schema({
     type: String,
     required: true,
   }
-},{timestamps: true, collection: "cards"})
+},{timestamps: true, collection: "games"})
 
-CardSchema.plugin(uniqueValidator)
+GameSchema.plugin(uniqueValidator)
 
-module.exports = mongoose.model('Card', CardSchema)
+module.exports = mongoose.model('Games', GameSchema)

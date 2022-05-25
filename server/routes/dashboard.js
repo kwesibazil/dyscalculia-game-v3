@@ -4,7 +4,8 @@ const { controller } = require('../controllers/dashboard')
 const {checkLoggedIn, validRoute}  = require('../middleware/authentication')
 
 /** @route /api/v2/dashboard */
-router.get('/cards', checkLoggedIn, controller.fetchCards)
+router.get('/games', checkLoggedIn, controller.fetchGames)
+router.get('/testimonies', checkLoggedIn, controller.fetchTestimonies)
 
 
 module.exports = router

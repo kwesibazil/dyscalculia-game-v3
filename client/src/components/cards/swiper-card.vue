@@ -1,5 +1,5 @@
 <template>
-  <swiper class="p-2 " :modules="modules" :slidesPerView="2.5" :spaceBetween="30"  
+  <swiper class="px-4 py-2" :modules="modules" :slidesPerView="2.5" :spaceBetween="30"  
     :slideToClickedSlide = "true" 
     :pagination="{dynamicBullets: true, clickable: true,}"
     :breakpoints="{
@@ -8,18 +8,26 @@
       '768': { slidesPerView: 1.5, spaceBetween: 20,},
       '992': { slidesPerView: 2.5, spaceBetween: 20,},
     }">
-    <swiper-slide v-for="(slideContent, index) in getCards.slice(0, 6)" :key="index" :virtualIndex="index">
-        <div class="card border border-2 border-secondary text-white">
-          <img src="@/assets/img/card01.jpg" class="card-img" alt="card"  style="max-height: 200px; min-height: 190px;" >
+    <swiper-slide v-for="(slideContent, index) in getCards('testimonies').slice(0, 6)" :key="index" :virtualIndex="index">
+        <div class="card border border-2 shadow mb-5" :class="slideContent.bootstrap">
+          <img :src="slideContent.urlToImg"  class="card-img" alt="testimony"  style="max-height: 200px; min-height: 190px;" >
           <div class="card-img-overlay">
-            <h5 class="card-title  fw-bold mt-3 text-truncate ">{{slideContent.title}}</h5>
-            <p class="card-text fst-italic fs-7">{{slideContent.text}}</p>
-            <router-link :to="slideContent.urlToArticle" class="btn btn-sm btn-light">Read more</router-link>
+            <div class="d-flex flex-column justify-content-center px-4">
+              <span class="align-self-end fs-8">{{slideContent.gender}} {{slideContent.age}}</span>
+              <p class="align-self-center card-text fst-italic fs-8 my-2">{{slideContent.body}}</p>
+              <span class="align-self-end fw-bold fs-7">{{slideContent.author}}</span>
+            </div>
+            <a :href="slideContent.urlToArticle" target="_blank" class="btn btn-sm btn-light">view story</a> 
           </div>
         </div>  
     </swiper-slide>
   </swiper>
 </template>
+
+<!-- temp="slideContent.pathToImg" -->
+
+<!-- @/assets/img/card00.jpg
+@/assets/img/testimonial-light.png -->
 
 
 <script>
@@ -51,10 +59,10 @@
 <style scoped>
   .swiper {
     width: 100%;
-    max-height: 220px;
+    max-height: 250px;
   }
   .card-img{
-    filter: blur(1.5px);
+    /* filter: blur(1.5px); */
   }
   .card-text{
     height: 70px;

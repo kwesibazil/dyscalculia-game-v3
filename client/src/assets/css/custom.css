@@ -1,14 +1,13 @@
 :root {
-  --primary: #3DB2FF;
-  --warning: #FF9601;
   --fs-7: 0.958rem;
   --fs-8: 0.738rem;
   --fs-9: 0.638rem;
   --fs-10: 0.438rem;
   --p-6: 3.5rem;
   --m-6: 3.5rem;
-  --swiper-pagination-bullet-inactive-color: #f5f5f5;
-  --swiper-pagination-bullet-inactive-opacity: .8;
+  --swiper-pagination-color: var(--bs-warning);
+  --swiper-pagination-bullet-inactive-opacity: .5;
+  --swiper-pagination-bullet-inactive-color: var(--bs-gray-dark);
 }
 
 *{
@@ -42,11 +41,11 @@ img{
 
 /*Additional svg fill colours*/
 .fill-primary{
-  fill: var(--primary);
+  fill: var(--bs-primary);
 }.fill-warning{
-  fill: var(--warning);
+  fill: var(--bs-warning);
 }.fill-danger{
-  fill: var(--danger);
+  fill: var(--bs-danger);
 }.fill-white{
   fill: #fff;
 }
@@ -81,14 +80,15 @@ img{
   margin-bottom: var(--m-7)!important;
 }
 
+
 .form-control:focus {
-  color: #212529;
-  background-color: #fff;
-  border-color: #9ed9ff;
   outline: 0;
+  color: var(--bs-dark);
+  border-color: var(--bs-primary);
+  background-color: var(--bs-white-rgb);
   box-shadow: 0 0 0 0.25rem rgb(61 178 255 / 25%);
 }.btn-outline-primary:hover{
-  color: #fff;
+  color: var(--bs-white-rgb);
 }
 
 .passwordIcon{
@@ -114,11 +114,4 @@ img{
 .no-highlight{                      
   box-shadow:none !important; 
   outline: 0px !important; 
-}
-
-/* swiper js override*/
-.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active {
-  background-color: var(--warning);
-}.swiper-pagination-bullet {
-  opacity: var(--swiper-pagination-bullet-inactive-opacity, 1);
 }
