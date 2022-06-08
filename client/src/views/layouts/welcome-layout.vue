@@ -1,28 +1,27 @@
 <template>
-  <div class="container-md h-100">
-    <ModalBox />
-    <LandingModal />
+  <div class="container-md">
+    <Modal />
     <WelcomeNav />
     <div class="text-center pt-5">
       <img src="@/assets/img/lg-logo.png" class="img-fluid mx-auto" alt="dyscalculia">
-      <p class="overflow-hidden my-3 mx-auto landing__p ">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt, aperiam eum placeat veniam amet excepturi voluptates libero exercitationem quam molestias? Distinctio tempora incidunt dolor corrupti nam delectus culpa. Fugiat, corporis! Quas odit ipsam eligendi voluptatum, perferendis modi laboriosam, mollitia ex iste qui voluptate.</p>
-      <button type="button" class="btn btn-primary my-4 text-white hvr-glow ">Learn more</button>
+      <p class="overflow-hidden my-3 mx-auto landing__p">Hello participants, we are inviting you to participate in our <strong>undergraduate research</strong>. Your participation in this study is entirely voluntary and you may refuse to particulate, or you may decide to stop your participation at any time. <strong> The data collected will remain confidential and used solely for academic purposes</strong>.</p>
+      <button  @click="toggleModal('researchForm')"  class="btn btn-primary my-4 text-white hvr-glow" type="button">Learn more</button>
     </div><!-- hero text ends here -->
   </div><!-- container ends here -->
 </template>
 
 <script>
-  import ModalBox from '@/components/modals/modal-box.vue'
-  import LandingModal from '@/components/modals/signin-&-signup.vue'
+  import { mapMutations } from 'vuex'
+  import Modal from '@/components/modals/modal.vue'
   import WelcomeNav from '@/components/navbars/welcome-nav.vue'
 
   export default {
     name: 'welcome-layout',
     components:{
-      LandingModal,
-      ModalBox,
+      Modal,
       WelcomeNav
-    }
+    },
+    methods: mapMutations(['toggleModal'])
   }
 </script>
 

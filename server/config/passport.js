@@ -38,7 +38,6 @@ passport.use(new LocalStrategy(customFields,  function(email, password, callback
  * When we serialize a user, Passport takes that user id and stores it internally on req.session.passport 
  */
 passport.serializeUser((user, callback) => {
-  //console.log(`serialize user is called ${user.email}`);
   callback(null, user.id)
 })
 
@@ -47,14 +46,7 @@ passport.serializeUser((user, callback) => {
  * The deserializeUser() function uses the id to look up the User by the given ID in the database and return it
  */
 passport.deserializeUser((userID, callback) => {
-  //console.log(`deserialize userID --. ${userID}`);
   User.findById(userID)
-  .then(user => {
-      //console.log(`this is the user in deserialize --> ${user.email}\n\n`);
-      callback(null, user)
-    })
-    .catch(err => {
-      //console.log(`this is deserialize user catch block err --> ${err}`);
-      callback(err)
-    })
+    .then(user => callback(null, user))
+    .catch(err => callback(err))
 })

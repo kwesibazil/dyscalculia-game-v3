@@ -1,13 +1,16 @@
 <template>
   <div>
-    practice
+    aptitude modal form
   </div>
 </template>
 
 
 
 <script>
+
   export default {
-    name: 'practice-layout',
+    name: 'aptitudeForm',
+  
   }
+
 </script>

@@ -1,39 +1,42 @@
 export default{
-  state: {    
-    sideNav: false,   
-    signIn: true,                                                 //controls the current form displayed
-    modalBox: false,                                               //controls modal toggle
-    landingModal: false,                                           //controls landingPage modal form
-    pwdIcon: { signIn: true, signUp: true },                      //controls icon toggle for the password input field
-    inputType: {signIn: 'password', signUp: 'password'},          //controls the password field type attribute toggle {password/text}
+  state: {
+    overlay: false,
+    modal: false,                                                  //controls modal toggle
+    currentModalForm: null,                                        //controls if form is displayed
+    loginForm: {current: null, active: true },                      //active represents the current form is signIn
+    
+    //sideNav: false,                                               //sideNav toggle
   },
 
   getters: {
-    collapseSideNav: state => state.sideNav,
-    isVisible: state => elem => state[elem],
-    isHidden: state => id => state.pwdIcon[id],
-    inputType: state => id => state.inputType[id],
+    isVisible: state => payload => state[payload],
+    getAttribute: state => payload => state[payload.object][payload.property]
   },
   
   mutations: {
-    toggleSideNav (state) {
-      console.log('toggle side nav');
-      state.sideNav = !state.sideNav
+    disableModal (state) {
+      state.modal = false
     },
 
-    toggleModal (state, form){
-      state.modalBox = !state.modalBox
-      state.landingModal = !state.landingModal
-      state.signIn = (form === 'signIn') ? true : false
+    toggleModal (state, modalForm){
+      state.modal = !state.modal 
+      state.currentModalForm = modalForm
     },
 
-    toggleForm(state, form){
-      state.signIn = (form === 'signIn') ? true : false
-    },
+    toggleLoginForm (state, form){
+      state.loginForm.current = form
+      state.loginForm.active = form === 'signIn' ? true : false
+    }
 
-    toggleInputType(state, data){
-      state.inputType[data[0]] = data[1]
-      state.pwdIcon[data[0]] =  !state.pwdIcon[data[0]]
-    },
+
+    // // toggleSideNav (state) {
+     // //   state.sideNav = !state.sideNav
+     // // }, 
+
+    // // showForm(state, payload){
+    // //   state.currentModalForm = payload
+    // // },
+
+
   }
 }

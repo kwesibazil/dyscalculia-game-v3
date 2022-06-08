@@ -23,10 +23,18 @@ img{
   display: block;
 }
 
-
 .h-90{
-  height: 80%;
+  height: 90%;
 }
+
+@media (min-width:768px){
+  .w-md-75{
+    width: 75%;
+  }
+}
+
+
+
 /*Additional Font size*/
 .fs-7{
   font-size: var(--fs-7);
@@ -79,6 +87,7 @@ img{
   margin-top: var(--m-7)!important;
   margin-bottom: var(--m-7)!important;
 }
+
 
 
 .form-control:focus {

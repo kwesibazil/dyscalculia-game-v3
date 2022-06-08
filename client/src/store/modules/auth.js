@@ -16,11 +16,11 @@ export default{
   mutations: {
     setAuthentication(state, payload){
       payload.rootState.isLoggedIn = payload.status
-      router.push({ name: 'dashboard' }) 
+      //router.push({ name: 'dashboard' }) 
     },
     userLogout(state, status, rootState){
       rootState.isLoggedIn = status
-      router.push({ name: 'welcome' }) 
+      //router.push({ name: 'welcome' }) 
     },
     logout(state){
       state.isAuthenticated = !state.isAuthenticated

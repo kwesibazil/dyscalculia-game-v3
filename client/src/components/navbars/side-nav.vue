@@ -1,6 +1,6 @@
 <template>
   <div class="h-100">
-    <div @click="toggleSideNav" class="modal-box" :class="{ 'modal-box--collapse': collapseSideNav}"></div><!-- REMOVE THIS AND USE THE MODAL COMPONENT -->
+    <div @click="toggleSideNav" class="modal-box" :class="{ 'modal-box--collapse': collapseSideNav}"></div><!-- THIS IS NOT THE MODAL COMPONENT -->
     <div class="sideNav shadow d-flex justify-content-center bg-white h-100" :class="{'sideNav--collapse': collapseSideNav}">
       <nav class="navbar navbar-light py-0 h-100 px-xl-3 ">
         <div class="d-flex flex-column justify-content-between h-100 ">

@@ -1,5 +1,5 @@
 <template>
-  <swiper class="px-4 py-2" :modules="modules" :slidesPerView="2.5" :spaceBetween="30"  
+  <swiper class="px-2 px-md-4 py-2" :modules="modules" :slidesPerView="2.5" :spaceBetween="30"  
     :slideToClickedSlide = "true" 
     :pagination="{dynamicBullets: true, clickable: true,}"
     :breakpoints="{
@@ -24,6 +24,7 @@
   </swiper>
 </template>
 
+<!--  -->
 <!-- temp="slideContent.pathToImg" -->
 
 <!-- @/assets/img/card00.jpg

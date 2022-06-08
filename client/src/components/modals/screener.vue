@@ -1,13 +1,15 @@
 <template>
   <div>
-    practice
+    screener modal form
   </div>
 </template>
 
 
-
 <script>
+
   export default {
-    name: 'practice-layout',
+    name: 'screenerForm',
+  
   }
+
 </script>
