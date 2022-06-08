@@ -1,6 +1,5 @@
 export default{
   state: {
-    overlay: false,
     modal: false,                                                  //controls modal toggle
     currentModalForm: null,                                        //controls if form is displayed
     loginForm: {current: null, active: true },                      //active represents the current form is signIn
