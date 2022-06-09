@@ -4,13 +4,13 @@
     <div class="bg-white border border-top-0 my-2 ">
       <div class="d-flex">
         <div class="d-grid w-50">
-          <button @click="toggleLoginForm('signUp')" :class="{'btn--current':!getAttribute({object:'loginForm', property:'active'})}" class="btn btn-dark opacity-25 rounded-0 py-3 no-highlight" type="button">Sign Up</button>
+          <button @click="toggleLoginForm('signUp')" :class="{'btn--current':!isHidden({object:'loginForm', property:'active'})}" class="btn btn-dark opacity-25 rounded-0 py-3 no-highlight" type="button">Sign Up</button>
         </div>
         <div class="d-grid w-50">
-          <button @click="toggleLoginForm('signIn')" :class="{'btn--current':getAttribute({object:'loginForm', property:'active'})}"  class="btn btn-dark opacity-25 rounded-0 py-3 no-highlight" type="button">Sign In</button>
+          <button @click="toggleLoginForm('signIn')" :class="{'btn--current':isHidden({object:'loginForm', property:'active'})}"  class="btn btn-dark opacity-25 rounded-0 py-3 no-highlight" type="button">Sign In</button>
         </div>
       </div><!-- flexbox ends here -->
-        <SignIn v-if="getAttribute(payload) === 'signIn'"/>
+        <SignIn v-if="isHidden(payload) === 'signIn'"/>
         <SignUp v-else />
     </div><!-- form container ends here -->
   </div><!-- container ends here -->
@@ -31,7 +31,7 @@ state[payload.object][payload.property]
         payload: { object: 'loginForm', property:'current'}
       }
     },
-    computed: mapGetters(['getAttribute']),
+    computed: mapGetters(['isHidden']),
     methods: mapMutations(['toggleLoginForm']),
     components:{
       SignIn,

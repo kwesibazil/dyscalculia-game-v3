@@ -1,5 +1,5 @@
 <template>
-  <form class="bg-white h-100 p-4 mt-2 "  @submit.prevent="submitForm">
+  <form class="bg-white h-100 p-4 pb-0 mt-2 "  @submit.prevent="submitForm">
     <div class="mb-5">
       <div class="input-group input-group-lg">
         <span class="inputIcon">
@@ -30,20 +30,22 @@
           </svg>
         </span>
       </div><!-- password input-group ends here -->
-      <div class="text-end"><button type="button" class="text-primary opacity-75 btn btn-link btn-sm px-0 mt-0">forgot password?</button></div>
+      <div class="text-end"><button type="button" class="text-primary opacity-75 btn btn-link btn-sm px-0 my-1">forgot password?</button></div>
     </div><!-- password container ends here -->
     <div>
       <div class="text-center">
-        <button type="submit" class="btn btn-lg text-white py-1 mt-2 fs-6 btn-primary">Login</button>
+        <button type="submit" class="btn btn-lg text-white py-1 mt-3 fs-6 btn-primary">Login</button>
       </div>
+
       <div class="text-center">
         <span class="text-dark fs-8 opacity-75 me-1">Need an account?</span>
-        <button  @click="toggleLoginForm('signUp')" type="button" class="text-warning text-decoration-none btn btn-link btn-sm px-0 my-xl-2 no-glow">Sign up</button>
+        <button  @click="toggleLoginForm('signUp')"  class="text-warning text-decoration-none btn btn-link btn-sm px-0 my-xl-2" type="button">Sign up</button>
+      </div>
+      <div v-if="isActive(payload)" :class="{'alert-danger':isActive(payload)}" class="alert d-flex flex-row-reverse justify-content-between align-items-center  py-1 my-2">
+        <button @click="closeAlert('signIn')" class="btn-close align-self-end py-2" type="button" aria-label="Close"></button>
+        <span class="fs-6">{{feedbackMsg('signIn')}}</span> 
       </div>
     </div><!-- options ends here -->
-    <div class="bg-dark">
-      feedback
-    </div>
   </form><!-- login form ends here -->
 </template>
 
@@ -56,6 +58,7 @@
       return{
         type: 'password',
         isHidden: true,
+        payload: {object: 'feedbackBox', property:'signIn'},
         input: {
           email: null,
           pwd: null
@@ -65,11 +68,11 @@
     computed: {
         inputType(){ return this.type },
         hidePassword(){return this.isHidden},
-      ...mapGetters(['feedback', 'feedbackMsg', 'alertSuccess']),
+      ...mapGetters(['isActive', 'feedbackMsg']),
 
     },
     methods:{
-      ...mapMutations(['toggleLoginForm']),
+      ...mapMutations(['toggleLoginForm', 'closeAlert']),
 
       toggleInputType(type){
         this.type = type

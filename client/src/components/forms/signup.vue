@@ -1,5 +1,5 @@
 <template>
-  <form class="bg-white h-100 p-4 mt-2 " @submit.prevent="submitForm">
+  <form class="bg-white h-100 p-4 pb-0 mt-2 " @submit.prevent="submitForm">
     <div class="mb-5">
       <div class="input-group input-group-lg">
         <span class="inputIcon">
@@ -42,7 +42,10 @@
         <button @click="toggleLoginForm('signIn')"  class="text-warning text-decoration-none btn btn-link btn-sm px-0  no-glow"  type="button">Login</button>
       </div>
       
-     
+      <div v-if="isActive(payload)" :class="{'alert-danger':isActive(payload)}" class="alert d-flex flex-row-reverse justify-content-between align-items-center  py-1 my-2">
+        <button @click="closeAlert('signUp')" class="btn-close align-self-end py-2" type="button" aria-label="Close"></button>
+        <span class="fs-6">{{feedbackMsg('signUp')}}</span> 
+      </div>
 
 
     </div><!-- options ends here -->
@@ -56,8 +59,9 @@
     name: 'signUpForm',
     data(){
       return{
-        type: 'password',
         isHidden: true,
+        type: 'password',
+        payload: {object: 'feedbackBox', property:'signUp'},
         input: {
           email: null,
           pwd: null
@@ -67,11 +71,11 @@
     computed: {
         inputType(){ return this.type },
         hidePassword(){return this.isHidden},
-      ...mapGetters(['feedback', 'feedbackMsg', 'alertSuccess']),
+      ...mapGetters(['isActive', 'feedbackMsg']),
 
     },
     methods:{
-      ...mapMutations(['toggleLoginForm']),
+      ...mapMutations(['toggleLoginForm', 'closeAlert']),
 
       toggleInputType(type){
         this.type = type

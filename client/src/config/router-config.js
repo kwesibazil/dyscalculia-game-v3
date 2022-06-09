@@ -15,7 +15,7 @@ const routes = [
     name: 'Welcome', 
     meta: { requiresAuth: false }, 
     component: () => import('@/views/layouts/welcome-layout.vue'),
-    beforeEnter: [removeQueryParams]
+    beforeEnter: [removeQueryParams],
   },
   {
     path: '/', 

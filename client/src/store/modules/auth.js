@@ -2,44 +2,74 @@ import router from '@/router/index'
 import axiosInstance from "@/config/axios-config";
 
 export default{
-  state: {   
-    feedback: { signIn: false, signUp: false }, 
+  state: {
+    register: null,  
+    redirectMsg: null,
+    feedbackBox: { signIn: false, signUp: false }, 
     feedbackMsg: { signIn: null, signUp: null }, 
-    alertSuccess: { signIn: false, signUp: false }     
+    alertDanger: { signIn: null, signUp: null }     
   },
   getters: {
-    feedback: state => id => state.feedback[id],
-    feedbackMsg: state => id => state.feedbackMsg[id],
-    alertSuccess: state => id => state.alertSuccess[id],
-    isLoggedIn: (state, getters, rootState) => rootState.isLoggedIn
+    redirectMsg: state => state.redirectMsg,
+    feedbackMsg: state => form => state.feedbackMsg[form],
+    isLoggedIn: (state, getters, rootState) => rootState.isLoggedIn,
+    isActive: state => payload => state[payload.object][payload.property]
   },
   mutations: {
     setAuthentication(state, payload){
-      payload.rootState.isLoggedIn = payload.status
-      //router.push({ name: 'dashboard' }) 
+      setTimeout(()=>{
+        payload.rootState.isLoggedIn = payload.status
+        router.push({ name: 'dashboard' }) 
+      },1000)
     },
     userLogout(state, status, rootState){
       rootState.isLoggedIn = status
-      //router.push({ name: 'welcome' }) 
+      router.push({ name: 'welcome' }) 
     },
     logout(state){
       state.isAuthenticated = !state.isAuthenticated
       console.log(`this is logout ${state.isAuthenticated}`);
     },
     closeAlert(state, form){
-      state.feedback[form] = false
+      state.feedbackBox[form] = !state.feedbackBox[form]
     },
+
+    /**
+     * @note this is total a BS Hack Find a better way to do this
+     * @summary the issue at hand is that in the event the user access the
+     *          application via the Sign Up route --> this will set the redirect msg
+     *                  However
+     *         the problem stems from that after successfully registering the user
+     *         the registration action makes a calls to the login action --> this is to prevent the user from
+     *         having to re-enter their credentials  once again
+     *                However
+     *        the login actions also makes a call to the this mutation, thus overriding the earlier msg
+     *      
+     *      A possible solution would be to display a generic msg that conveys both registration and login feedback to the 
+     */
+    redirect(state, data){
+      if(data.action === 'register'){
+        state.register = true
+        state.redirectMsg = data.msg
+      }
+
+      if(data.action === 'login' && !state.register)
+        state.redirectMsg = data.msg
+
+        
+      console.log(this.state.toggle);
+      this.state.toggle.currentModalForm = 'success'
+    },
+
     /**
      * @description 
      *    data.form ---> this determines which form to display feedbackMsg
-     *    data.feedbackMsg -----> a string return from the server
-     *    data.bootStrap --> this is a bootstrap class that determine the appropriate css styling 
-     *                      depending on the status code return from the server             
+     *    data.feedbackMsg -----> a string return from the server            
      */
     showFeedback(state, data){                
-      state.feedback[data.form] = true 
+      state.feedbackBox[data.form] = true 
+      state.alertDanger[data.form] =  true
       state.feedbackMsg[data.form] = data.feedbackMsg   
-      state.alertSuccess[data.form] = (data.bootStrap === 'alert-success') ? true : false
     }
   },
   actions: {
@@ -57,13 +87,13 @@ export default{
     async register({commit, dispatch}, payload){
       try {
         const res = await axiosInstance.post('users/register', payload)
-        await commit('showFeedback', {feedbackMsg: res.data.msg, form: 'signUp', bootStrap: 'alert-success'})
+        await commit('redirect', {msg: 'register route', action: 'register'})
         await dispatch('login', payload)
       } catch (err) {
         if(err.response && err.response.status !== 500 )
-          commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signUp', bootStrap: 'alert-danger'})
+          commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signUp'})
         else
-          commit('showFeedback', {feedbackMsg: 'Registration Failed. Please Try Again!', form: 'signUp', bootStrap: 'alert-danger'})
+          commit('showFeedback', {feedbackMsg: 'Registration Failed. Please Try Again!', form: 'signUp'})
       }
     },
 
@@ -82,15 +112,16 @@ export default{
     async login({commit, rootState}, payload){
       try {
         const res = await axiosInstance.post('users/login', payload)
-        commit('setAuthentication', {status: res.data.isAuthenticated, rootState})     //mutation in store/index.js <rootState>
+        await commit('redirect', {msg: 'login route', action: 'login'})
+        await commit('setAuthentication', {status: res.data.isAuthenticated, rootState})     //mutation in store/index.js <rootState>
       } catch (err) {
-        console.log(err);
         if(err.response && err.response.status !== 500 )
-          commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signIn', bootStrap: 'alert-danger'})
+          commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signIn'})
         else
-          commit('showFeedback', {feedbackMsg: 'Login Failed. Please Try Again!', form: 'signIn', bootStrap: 'alert-danger'})
+          commit('showFeedback', {feedbackMsg: 'Login Failed. Please Try Again!', form: 'signIn' })
       }
     },
+
 
     async logout({commit}){
       console.log('todo --> logout user');

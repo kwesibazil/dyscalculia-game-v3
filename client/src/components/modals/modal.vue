@@ -1,13 +1,15 @@
 <template>
   <transition duration="550" name="nested">
     <div v-if="isVisible('modal')" class="overlay">
-      <div class="modal d-flex flex-column shadow bg-light px-4 my-2 ">
+      <div class="modal d-flex flex-column shadow bg-light px-4  ">
         <button @click="toggleModal()" class="btn-close align-self-end py-2" type="button" aria-label="Close"></button>
         <div class="flex-grow-1 my-3 ">
           <loginForm v-if="isVisible('currentModalForm') === 'loginForm'"/>
           <screenerForm v-else-if="isVisible('currentModalForm') === 'screenerForm'"/>
           <aptitudeForm v-else-if="isVisible('currentModalForm') === 'aptitudeForm'" /> 
           <researchForm v-else-if="isVisible('currentModalForm') === 'researchForm'"/>
+          <redirectSuccess v-else-if="isVisible('currentModalForm') === 'success'"/>
+
         </div><!-- modal body ends here -->
       </div><!-- modal ends here -->
     </div><!-- overlay ends here -->
@@ -20,6 +22,7 @@
   import screenerForm  from '@/components/modals/screener'
   import aptitudeForm from '@/components/modals/aptitude'
   import researchForm from '@/components/modals/research'
+  import redirectSuccess from '@/components/modals/redirect-success'
 
 
   export default {
@@ -30,7 +33,8 @@
       loginForm,
       screenerForm,
       aptitudeForm,
-      researchForm
+      researchForm,
+      redirectSuccess
     },
   }
 </script> 

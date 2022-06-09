@@ -56,6 +56,8 @@ img{
   fill: var(--bs-danger);
 }.fill-white{
   fill: #fff;
+}.fill-success{
+  fill: var(--bs-success);
 }
 
 /*Additional padding size*/

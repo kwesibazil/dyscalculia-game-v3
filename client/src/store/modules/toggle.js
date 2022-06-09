@@ -9,7 +9,7 @@ export default{
 
   getters: {
     isVisible: state => payload => state[payload],
-    getAttribute: state => payload => state[payload.object][payload.property]
+    isHidden: state => payload => state[payload.object][payload.property]
   },
   
   mutations: {
@@ -28,14 +28,9 @@ export default{
     }
 
 
-    // // toggleSideNav (state) {
-     // //   state.sideNav = !state.sideNav
-     // // }, 
-
-    // // showForm(state, payload){
-    // //   state.currentModalForm = payload
-    // // },
-
+    // toggleSideNav (state) {
+    //    state.sideNav = !state.sideNav
+    //  }, 
 
   }
 }
