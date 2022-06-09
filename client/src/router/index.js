@@ -3,19 +3,26 @@ import store from '@/store/index'
 import { routes } from '@/config/router-config'
 
 
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  if(to.meta.requiresAuth && to.name !== 'Welcome' && !store.getters.isLoggedIn)
-    next({ name: 'Welcome' })
-  else if(!to.meta.requiresAuth && to.name === 'Welcome' && store.getters.isLoggedIn)
-    next({ name: 'dashboard' })
-  else
-    next()
+/**
+ * @summary before each route make a request to the server and retrieve login Status
+ *          if user is Authenticated proceed as normal to the desired route
+ *          else redirect to the landing page
+ */
+  router.beforeEach((to, from, next) => {
+  store.dispatch('loginStatus').then(isLoggedIn => {
+    if(to.meta.requiresAuth && to.name !== 'welcome' && !isLoggedIn)
+      next({ name: 'welcome' })
+    else if(!to.meta.requiresAuth && to.name === 'welcome' && isLoggedIn)
+      next({ name: 'dashboard' })
+    else
+      next()
+  })
+  
 })
 
 

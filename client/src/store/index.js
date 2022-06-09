@@ -8,7 +8,7 @@ import cards from './modules/cards'
 
 export default createStore({
   state: {                                    //vuex-persist reducer will override state with default value
-    isLoggedIn: false,                        // if state is declare inside a module                      
+    //isLoggedIn: false,                        // if state is declare inside a module                      
   },
   getters: {
   },
@@ -21,6 +21,6 @@ export default createStore({
     cards,
     toggle
   },
-  plugins:[vuexSession.plugin]
+  //plugins:[vuexSession.plugin]
 })
 

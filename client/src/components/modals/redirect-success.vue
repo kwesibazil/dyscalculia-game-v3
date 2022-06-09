@@ -17,9 +17,3 @@
     computed: mapGetters(['redirectMsg'])
   }
 </script>
-
-
-<style scoped>
-svg{
-}
-</style>

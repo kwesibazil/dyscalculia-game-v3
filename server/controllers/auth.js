@@ -4,19 +4,33 @@ const {genPassword}  = require('../helpers/passwordUtils.js')
 
 const loginFailure = (req, res) =>{
   res.status(StatusCodes.UNAUTHORIZED).json({
-  'err': 'Incorrect email or password',
-  'isAuthenticated': req.isAuthenticated()
-})}
+    'err': 'Incorrect email or password'
+  })
+}
 
 const loginSuccess = (req, res) => {
+  // req.session.passport.user.LoggedIn = true
   res.status(StatusCodes.OK).json({
-  'msg': 'Successfully logged in', 
-  'isAuthenticated': req.isAuthenticated()
-})}
+    'msg': 'Login Successful.', 
+    'route': 'dashboard'
+  })
+}
+
+const loginStatus = (req, res) =>{
+  if(req.isAuthenticated)
+    res.status(StatusCodes.OK).json({'isAuthenticated': req.isAuthenticated()})
+  else
+    res.status(StatusCodes.UNAUTHORIZED).json({"err": "something went wrong with loginStatus"})
+}
 
 const logout = (req, res) =>{ 
+  // req.session.passport.user.LoggedIn = false
   req.logOut()
-  res.redirect('landing')
+  req.session.destroy(err => {
+    console.log(err);
+    res.status(StatusCodes.UNAUTHORIZED).json({"err": "something went wrong FAILED TO LOGOUT contact admin"})
+  })
+  res.status(StatusCodes.OK).json({'route': 'welcome'})
 }
 
 
@@ -37,11 +51,11 @@ const register = async (req, res) => {
     hash: hash
   })
   newUser.save()
-    .then(_ => res.status(StatusCodes.CREATED).json({"msg": "registration successful."}))
+    .then(_ => res.status(StatusCodes.CREATED).json({"msg": "registration completed successfully."}))
     .catch(err => {
       res.status(StatusCodes.CONFLICT).json({"err": err.errors.email.message})
     })
 }
 
-const controller = {register,  loginFailure, loginSuccess, logout}
+const controller = {register, loginFailure, loginSuccess, loginStatus, logout}
 module.exports = {controller}

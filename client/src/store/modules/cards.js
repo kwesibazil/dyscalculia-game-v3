@@ -24,7 +24,7 @@ export default{
         const res = await axiosInstance.get('dashboard/testimonies')
         commit('setTestimonies', res.data)
       } catch (err) {
-        console.log(err.response);
+        console.log(err.response.data.err);
       }
     },
 

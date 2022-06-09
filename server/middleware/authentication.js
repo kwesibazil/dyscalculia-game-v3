@@ -1,7 +1,6 @@
 const {UnauthorizedError, NotFoundError} = require('../errors')
 
 const checkLoggedIn = (req, res, next) =>{
-  console.log(`\n\nthis is checkLoggedIn ---> ${req.isAuthenticated()}` );
   if(req.isAuthenticated())
     next()
   else

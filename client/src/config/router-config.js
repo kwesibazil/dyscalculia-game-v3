@@ -12,14 +12,14 @@ const removeHash = to => {
 const routes = [
   { 
     path: '/welcome', 
-    name: 'Welcome', 
+    name: 'welcome', 
     meta: { requiresAuth: false }, 
     component: () => import('@/views/layouts/welcome-layout.vue'),
     beforeEnter: [removeQueryParams],
   },
   {
     path: '/', 
-    name: 'Home', 
+    name: 'home', 
     meta: { requiresAuth: true }, 
     component: () => import('@/views/layouts/main-layout.vue'),
     children: 

@@ -1,10 +1,9 @@
 export default{
   state: {
-    modal: false,                                                  //controls modal toggle
-    currentModalForm: null,                                        //controls if form is displayed
+    modal: false,                                                   //controls modal toggle
+    sideNav: true,                                                 //sideNav toggle
+    currentModalForm: null,                                         //controls if form is displayed
     loginForm: {current: null, active: true },                      //active represents the current form is signIn
-    
-    //sideNav: false,                                               //sideNav toggle
   },
 
   getters: {
@@ -13,8 +12,9 @@ export default{
   },
   
   mutations: {
-    disableModal (state) {
+    resetModal (state) {
       state.modal = false
+      state.currentModalForm = null
     },
 
     toggleModal (state, modalForm){
@@ -25,12 +25,11 @@ export default{
     toggleLoginForm (state, form){
       state.loginForm.current = form
       state.loginForm.active = form === 'signIn' ? true : false
-    }
+    },
 
-
-    // toggleSideNav (state) {
-    //    state.sideNav = !state.sideNav
-    //  }, 
+    toggleSideNav (state) {
+      state.sideNav = !state.sideNav
+    }, 
 
   }
 }

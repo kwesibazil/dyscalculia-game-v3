@@ -3,14 +3,15 @@
     <div v-if="isVisible('modal')" class="overlay">
       <div class="modal d-flex flex-column shadow bg-light px-4  ">
         <button @click="toggleModal()" class="btn-close align-self-end py-2" type="button" aria-label="Close"></button>
+
         <div class="flex-grow-1 my-3 ">
           <loginForm v-if="isVisible('currentModalForm') === 'loginForm'"/>
           <screenerForm v-else-if="isVisible('currentModalForm') === 'screenerForm'"/>
           <aptitudeForm v-else-if="isVisible('currentModalForm') === 'aptitudeForm'" /> 
           <researchForm v-else-if="isVisible('currentModalForm') === 'researchForm'"/>
           <redirectSuccess v-else-if="isVisible('currentModalForm') === 'success'"/>
-
         </div><!-- modal body ends here -->
+
       </div><!-- modal ends here -->
     </div><!-- overlay ends here -->
   </transition>
@@ -36,6 +37,13 @@
       researchForm,
       redirectSuccess
     },
+    beforeUnmount(){
+      console.log('beforeUnmount is called')
+      this.$store.commit('resetModal')
+    }
+
+
+
   }
 </script> 
 

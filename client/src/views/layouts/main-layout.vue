@@ -2,7 +2,7 @@
   <main class="container-fluid d-flex flex-column px-0 bg-light h-100">
     <TopNav />
     <div class="d-flex flex-grow-1 mt-1 height ">
-      <SideNav class=""/>
+      <SideNav />
       <div class="d-flex flex-column px-3 flex-grow-1 overflow-auto px-md-4 h-100">
 
         <router-view/>

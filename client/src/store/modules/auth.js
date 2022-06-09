@@ -16,20 +16,11 @@ export default{
     isActive: state => payload => state[payload.object][payload.property]
   },
   mutations: {
-    setAuthentication(state, payload){
-      setTimeout(()=>{
-        payload.rootState.isLoggedIn = payload.status
-        router.push({ name: 'dashboard' }) 
-      },1000)
+    redirect(state, route){
+      setTimeout( _ => router.push({ name: route }) ,500)
     },
-    userLogout(state, status, rootState){
-      rootState.isLoggedIn = status
-      router.push({ name: 'welcome' }) 
-    },
-    logout(state){
-      state.isAuthenticated = !state.isAuthenticated
-      console.log(`this is logout ${state.isAuthenticated}`);
-    },
+    
+  
     closeAlert(state, form){
       state.feedbackBox[form] = !state.feedbackBox[form]
     },
@@ -47,7 +38,7 @@ export default{
      *      
      *      A possible solution would be to display a generic msg that conveys both registration and login feedback to the 
      */
-    redirect(state, data){
+    setRedirectMsg(state, data){
       if(data.action === 'register'){
         state.register = true
         state.redirectMsg = data.msg
@@ -56,8 +47,6 @@ export default{
       if(data.action === 'login' && !state.register)
         state.redirectMsg = data.msg
 
-        
-      console.log(this.state.toggle);
       this.state.toggle.currentModalForm = 'success'
     },
 
@@ -73,6 +62,24 @@ export default{
     }
   },
   actions: {
+    async loginStatus({commit}){
+      try {
+        const res = await axiosInstance.get('users/login-status')
+        return res.data.isAuthenticated
+      } catch (err) {
+        console.log(err.response.data.err);
+      }
+    },
+
+    async logout({commit}){
+      try {
+        const res = await axiosInstance.get('users/logout')
+        await commit ('redirect', res.data.route )
+      } catch (err) {
+        console.log(err.response.data.err);
+      }
+    },
+
     /**
      * @returns  http status code (409 || 201) and json msg  [msg] if success || [err] if unsuccessful}
      * @route  'users/register
@@ -87,7 +94,7 @@ export default{
     async register({commit, dispatch}, payload){
       try {
         const res = await axiosInstance.post('users/register', payload)
-        await commit('redirect', {msg: 'register route', action: 'register'})
+        await commit('setRedirectMsg', {msg: res.data.msg, action: 'register'})
         await dispatch('login', payload)
       } catch (err) {
         if(err.response && err.response.status !== 500 )
@@ -109,22 +116,17 @@ export default{
     *        else
     *          user will be provided with an appropriate feedback msg
      */
-    async login({commit, rootState}, payload){
+    async login({commit}, payload){
       try {
         const res = await axiosInstance.post('users/login', payload)
-        await commit('redirect', {msg: 'login route', action: 'login'})
-        await commit('setAuthentication', {status: res.data.isAuthenticated, rootState})     //mutation in store/index.js <rootState>
+        await commit('setRedirectMsg', {msg: res.data.msg, action: 'login'})
+        await commit('redirect', res.data.route)
       } catch (err) {
         if(err.response && err.response.status !== 500 )
           commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signIn'})
         else
           commit('showFeedback', {feedbackMsg: 'Login Failed. Please Try Again!', form: 'signIn' })
       }
-    },
-
-
-    async logout({commit}){
-      console.log('todo --> logout user');
     }
   }
 }

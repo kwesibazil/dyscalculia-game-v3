@@ -4,7 +4,6 @@
       <div class="d-flex justify-content-between ">
         <h2 class="fs-5 fw-bold">Dyscalculia</h2>
         <button type="button" class="btn btn-sm py-0 btn-warning fs-7 text-white">start test</button>
-        <button @click="toggleModal('signUp')" type="button" class="btn btn-outline-primary me-3 hvr-glow">Sign Up</button>
       </div>
       <div class=" d-flex my-2 align-items-center">
         <SwiperCard />

@@ -1,7 +1,8 @@
 <template>
   <div class="h-100">
-    <div @click="toggleSideNav" class="modal-box" :class="{ 'modal-box--collapse': collapseSideNav}"></div><!-- THIS IS NOT THE MODAL COMPONENT -->
-    <div class="sideNav shadow d-flex justify-content-center bg-white h-100" :class="{'sideNav--collapse': collapseSideNav}">
+    <div @click="toggleSideNav" class="modal-box" :class="{ 'modal-box--collapse': !isVisible('sideNav')}"></div><!-- REMOVE THIS AND USE THE MODAL COMPONENT -->
+    
+    <div class="sideNav shadow d-flex justify-content-center bg-white h-100" :class="{'sideNav--collapse': !isVisible('sideNav')}">
       <nav class="navbar navbar-light py-0 h-100 px-xl-3 ">
         <div class="d-flex flex-column justify-content-between h-100 ">
           <ul class="navbar-nav d-flex flex-column justify-content-between h-50">
@@ -49,17 +50,17 @@
               </router-link>
             </li>
           </ul>
-          <router-link  class="hvr-shrink logout--btn mx-auto rounded" to="#">
+          <button @click="logout" class="hvr-shrink btn btn-danger logout--btn mx-auto rounded" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right me-2 fill-white" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
               <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
             </svg>
             <span class="text-white">logout</span> 
-          </router-link>
+          </button>
         </div>
       </nav>
-    </div>
-  </div>
+    </div><!-- sideNav ends here -->
+  </div><!-- root container ends here -->
 </template>
 
 
@@ -68,8 +69,15 @@
 
   export default {
     name: 'SideNav',
-    methods: mapMutations(['toggleSideNav']),
-    computed: mapGetters(['collapseSideNav'])
+    computed: mapGetters(['isVisible']),
+    methods: {
+      ...mapMutations(['toggleSideNav']),
+
+      logout(){
+        this.$store.dispatch('logout')
+      }
+    },
+
   }
 </script>
 
@@ -80,8 +88,7 @@
     margin-bottom: .25rem ;
     align-items: center;
     justify-items: center;
-    text-decoration: none;
-    background-color: rgb(204, 0, 0);
+    background-color: rgb(197, 9, 9);
   }
 
   /**overrides bootstrap default styles */
@@ -103,7 +110,6 @@
       z-index: 3;
       overflow:hidden;    
       transition: all 0.4s linear; 
-      /* transform: translate(-100%);  /*in this case width was used because transform does not support reflow */
     }.sideNav--collapse{
       max-width:0;
       margin-right: 0;
@@ -112,7 +118,6 @@
     }
   }
 
-  /** Mobile App overlay transition*/
   @media (max-width:767px){
     .modal-box{
       top: 1;
@@ -131,7 +136,6 @@
       top: 1;
       z-index: 13;
       width: 210px;
-      /* height: 100% !important; */
       height: calc(100vh - 52px) !important;
       position: absolute;
       transform: translate(-100%);
