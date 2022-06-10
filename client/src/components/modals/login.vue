@@ -16,8 +16,6 @@
   </div><!-- container ends here -->
 </template>
 
-state[payload.object][payload.property]
-
 
 <script>
   import { mapGetters, mapMutations } from 'vuex'

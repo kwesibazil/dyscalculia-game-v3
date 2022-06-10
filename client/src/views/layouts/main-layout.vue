@@ -1,6 +1,7 @@
 <template>
   <main class="container-fluid d-flex flex-column px-0 bg-light h-100">
     <TopNav />
+    <Modal />
     <div class="d-flex flex-grow-1 mt-1 height ">
       <SideNav />
       <div class="d-flex flex-column px-3 flex-grow-1 overflow-auto px-md-4 h-100">
@@ -13,14 +14,16 @@
 
 
 <script>
+  import Modal from '@/components/modals/modal.vue'
   import TopNav from '@/components/navbars/top-nav.vue'
   import SideNav from '@/components/navbars/side-nav.vue'
 
   export default {
     name: 'main-layout',
     components: {
-      SideNav,
-      TopNav
+      Modal,
+      TopNav,
+      SideNav
     },
   }
 </script>

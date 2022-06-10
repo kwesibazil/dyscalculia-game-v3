@@ -3,7 +3,7 @@
     <section class="mt-3 mb-1 ">
       <div class="d-flex justify-content-between ">
         <h2 class="fs-5 fw-bold">Dyscalculia</h2>
-        <button type="button" class="btn btn-sm py-0 btn-warning fs-7 text-white">start test</button>
+        <button  @click="toggleModal('screenerForm')" class="btn btn-sm py-0 btn-warning fs-7 text-white hvr-pulse-grow" type="button">start test</button>
       </div>
       <div class=" d-flex my-2 align-items-center">
         <SwiperCard />
@@ -19,10 +19,12 @@
 
 
 <script>
-import SwiperCard from '@/components/cards/swiper-card.vue'
-import GameCard from '@/components/cards/game-card.vue'
+  import { mapMutations } from 'vuex'
+  import SwiperCard from '@/components/cards/swiper-card.vue'
+  import GameCard from '@/components/cards/game-card.vue'
   export default {
     name: 'dashboard-layout',
+    methods: mapMutations(['toggleModal']),
     components: {
       GameCard,
       SwiperCard

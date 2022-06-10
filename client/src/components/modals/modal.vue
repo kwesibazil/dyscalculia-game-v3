@@ -1,8 +1,8 @@
 <template>
   <transition duration="550" name="nested">
     <div v-if="isVisible('modal')" class="overlay">
-      <div class="modal d-flex flex-column shadow bg-light px-4  ">
-        <button @click="toggleModal()" class="btn-close align-self-end py-2" type="button" aria-label="Close"></button>
+      <div class="modal d-flex flex-column shadow bg-light px-4 rounded-3 ">
+        <button @click="toggleModal()" class="btn-close align-self-end pt-3 pb-2" type="button" aria-label="Close"></button>
 
         <div class="flex-grow-1 my-3 ">
           <loginForm v-if="isVisible('currentModalForm') === 'loginForm'"/>
@@ -54,7 +54,7 @@
   }
   .overlay{
     top: 0;
-    z-index: 1;
+    z-index: 8;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -62,7 +62,7 @@
   }
   .modal { 
     top: 5%;
-    z-index: 2;
+    z-index: 9;
     max-width: 90%;
     max-height: 75%;
     min-height: 500px; 
