@@ -22,7 +22,7 @@ const sessionOptions = {
   store: sessionStore,
   cookie: {
     httpOnly: true,
-    sameSite: 'lax',                //research more into this   
+    sameSite: "lax",                //research more into this   
     secure: false ,                 //change in production to true (https)
     maxAge: 1000 * 60 * 60  * 4    //1hrs  (1000mil =  1sec  * 60 = 1min * 60 = 1hrs)  current = 4hrs
   }

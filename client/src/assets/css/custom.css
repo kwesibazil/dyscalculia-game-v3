@@ -2,7 +2,7 @@
   --fs-7: 0.958rem;
   --fs-8: 0.738rem;
   --fs-9: 0.638rem;
-  --fs-10: 0.438rem;
+  --fs-10: 0.538rem;
   --p-6: 3.5rem;
   --m-6: 3.5rem;
   --swiper-pagination-color: var(--bs-warning);
@@ -32,8 +32,6 @@ img{
     width: 75%;
   }
 }
-
-
 
 /*Additional Font size*/
 .fs-7{

@@ -6,7 +6,7 @@ export default{
     testimonies: []
   },
   getters: {
-    getCards: state => id => state[id]
+    getCards: state => elem => state[elem]
   },
   
   mutations: {
