@@ -1,16 +1,17 @@
 <template>
-  <swiper class="px-2 px-md-4 py-2" :modules="modules" :slidesPerView="2.5" :spaceBetween="30"  
+  <swiper class="px-2 px-md-4 py-1" :modules="modules" :slidesPerView="2.5" :spaceBetween="30"  
     :slideToClickedSlide = "true" 
     :pagination="{dynamicBullets: true, clickable: true,}"
     :breakpoints="{
       '0': { slidesPerView: 1, spaceBetween: 10,},
-      '576': {slidesPerView: 1.5,spaceBetween: 10,},
+      '576': {slidesPerView: 1.7,spaceBetween: 10,},
       '768': { slidesPerView: 1.5, spaceBetween: 20,},
-      '992': { slidesPerView: 2.5, spaceBetween: 20,},
+      '992': { slidesPerView: 2.2, spaceBetween: 20,},
+      '1200': { slidesPerView: 2.7, spaceBetween: 20,}
     }">
-    <swiper-slide v-for="(slideContent, index) in getCards('testimonies').slice(0, 6)" :key="index" :virtualIndex="index">
-        <div class="card border border-2 shadow mb-5" :class="slideContent.bootstrap">
-          <img :src="slideContent.urlToImg"  class="card-img" alt="testimony"  style="max-height: 200px; min-height: 190px;" >
+    <swiper-slide v-for="(slideContent, index) in getState('testimonies').slice(0, 6)" :key="index" :virtualIndex="index">
+        <div class="card border border-2 shadow mb-4" :class="slideContent.bootstrap">
+          <img :src="slideContent.urlToImg"  class="card-img" alt="testimony"  style="max-height: 200px; min-height: 190px; min-width: ;" >
           <div class="card-img-overlay">
             <div class="d-flex flex-column justify-content-center px-4">
               <span class="align-self-end fs-8">{{slideContent.gender}} {{slideContent.age}}</span>
@@ -23,12 +24,6 @@
     </swiper-slide>
   </swiper>
 </template>
-
-<!--  -->
-<!-- temp="slideContent.pathToImg" -->
-
-<!-- @/assets/img/card00.jpg
-@/assets/img/testimonial-light.png -->
 
 
 <script>
@@ -53,14 +48,14 @@
         modules: [Pagination],
       };
     },
-    computed: mapGetters(['getCards'])
+    computed: mapGetters(['getState'])
   };
 </script>
 
 <style scoped>
   .swiper {
     width: 100%;
-    max-height: 250px;
+    max-height: 240px;
   }
   .card-img{
     /* filter: blur(1.5px); */

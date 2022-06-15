@@ -11,25 +11,25 @@
     name: 'progress-bar',
     data(){
       return{
-        speed:  40,
-        endValue: this.$store.state.screener.endValue,
-        progressValue: this.$store.state.screener.progressValue
+        speed:  15
       }
     },
-    mounted(){
+    async created(){
+      await this.$store.commit('progress') 
+
       const progressBar = this.$refs.progressBar
       const value = progressBar.firstElementChild
 
       const progress = setInterval(()=>{
-        this.progressValue++
-        value.textContent = `${this.progressValue}%`
+        this.$store.state.cards.progressBar.progressValue++
+        value.textContent = `${this.$store.state.cards.progressBar.progressValue}%`
   
         progressBar.style.background = `conic-gradient(
-          #FF9601 ${this.progressValue * 3.6}deg,
-          #e9ecef ${this.progressValue * 3.6}deg
+          #FF9601 ${this.$store.state.cards.progressBar.progressValue * 3.6}deg,
+          #e9ecef ${this.$store.state.cards.progressBar.progressValue * 3.6}deg
         )`
         
-        if(this.progressValue === this.endValue)
+        if(this.$store.state.cards.progressBar.progressValue === this.$store.state.cards.progressBar.endValue)
           clearInterval(progress)
       }, this.speed)
     }
@@ -69,42 +69,17 @@
     }
   }
 
- @media (min-width:576px){
+  @media (min-width:576px){
     .container{
-      height: 100px;
-      width: 100px;
-    }.circular-progress{
-      width: 90px;
       height: 90px;
+      width: 90px;
+    }.circular-progress{
+      width: 80px;
+      height: 80px;
     }.progress-value{
       font-size: 16px;
       position: relative;
     }
   }  
 
-    @media (min-width:767px){
-    .container{
-      height: 120px;
-      width: 120px;
-    }.circular-progress{
-      width: 110px;
-      height: 110px;
-    }.progress-value{
-      font-size: 16px;
-      position: relative;
-    }
-  }  
-/* 
-  @media (min-width:767px){
-    .container{
-      height: 160px;
-      width: 160px;
-    }.circular-progress{
-      width: 140px;
-      height: 140px;
-    }.progress-value{
-      font-size: 16px;
-      position: relative;
-    }
-  }   */
 </style>

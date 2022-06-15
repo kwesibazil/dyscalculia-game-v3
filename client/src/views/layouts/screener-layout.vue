@@ -1,6 +1,6 @@
 <template>
   <div class="px-4">
-    <h2 class="text-center fw-bold my-4">Dyscalculic Screener for Adults</h2>
+    <h2 class="text-center fw-bold mb-4">Dyscalculic Screener for Adults</h2>
     <div class="mb-4">
       <h3 class="fs-5 fw-bold fst-italic ">About</h3>
       <p class="px-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit eius excepturi neque ipsam id adipisci perferendis in, quae quaerat nostrum fugit provident magni explicabo laborum eos. Veritatis sed iste ducimus!</p>

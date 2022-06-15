@@ -42,7 +42,7 @@ const routes = [
         path: '/screener-test', 
         name: 'screener-test', 
         meta: { requiresAuth: true }, 
-        component: () => import('@/components/forms/screener-test.vue'),
+        component: () => import('@/views/layouts/screener-test-layout.vue'),
         beforeEnter: [removeQueryParams],
       },
       {

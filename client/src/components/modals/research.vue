@@ -32,3 +32,8 @@
     display: none;
   } 
 </style>
+
+<!-- 
+Dear Patient,
+    My colleagues and I are first year students at the University of Guyana, and as part of a research and feasibility study conduct at the Guyana Public Hospital Cooperation (G.P.H.C), this questionnaire is being carried out to ascertain your thoughts on the Impacts of Inadequate Staffing on the quality of patient and healthcare within the Maternity & Childcare clinic.
+		We hope your response will be honest and that you will answer the following questions to the best of your knowledge, by selecting only one answer from the suggestions provided. We also guarantee that your identity will remain anonymous since no personal questions are asked. -->

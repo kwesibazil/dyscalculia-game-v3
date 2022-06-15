@@ -1,10 +1,10 @@
 <template>
-  <main class="container-fluid d-flex flex-column px-0 bg-light h-100">
+  <main class="container-fluid d-flex flex-column px-0 bg-light h-100 ">
     <TopNav />
     <Modal />
     <div class="d-flex flex-grow-1 mt-1 height ">
       <SideNav />
-      <div class="d-flex flex-column px-3 flex-grow-1 overflow-auto px-md-4 h-100">
+      <div class="d-flex flex-column flex-grow-1 overflow-auto h-100 pt-1">
 
         <router-view/>
       </div>

@@ -27,11 +27,28 @@ img{
   height: 90%;
 }
 
+
+
+/*X-Small*/
+@media (max-width:575px){
+  .fs-xs-7{
+    font-size: var(--fs-7);
+  }.fs-xs-8{
+    font-size: var(--fs-8);
+  }.fs-xs-9{
+    font-size: var(--fs-9);
+  }.fs-xs-10{
+    font-size: var(--fs-10);
+  }
+}
+
+/*Medium*/
 @media (min-width:768px){
   .w-md-75{
     width: 75%;
   }
 }
+
 
 /*Additional Font size*/
 .fs-7{
