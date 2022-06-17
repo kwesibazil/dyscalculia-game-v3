@@ -17,6 +17,7 @@ export default{
   },
   mutations: {
     redirect(state, route){
+      console.log('redirect called')
       setTimeout( _ => router.push({ name: route }) ,500)
     },
     

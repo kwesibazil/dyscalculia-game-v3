@@ -1,6 +1,6 @@
 <template>
   <div class="px-4" >
-    <section class="mb-1">
+    <section class="my-1">
       <div class="d-flex justify-content-between ">
         <h2 class="fs-5 fw-bold">Dyscalculia</h2>
         <button  @click="toggleModal('screenerForm')" class="btn btn-sm py-0 btn-warning fs-7 text-white hvr-pulse-grow" type="button">start test</button>

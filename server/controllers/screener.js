@@ -9,6 +9,16 @@ const fetchQuestions = async (req, res) =>{
     res.status(StatusCodes.OK).json(result)  
 }
 
+const testResults = async (req, res) =>{
+  console.log(req.body);
 
-const controller = {fetchQuestions}
+
+  res.status(StatusCodes.OK).json({
+    'msg': 'reach server ok',
+    'route': 'screener-results',
+    'results': {score: 'sample', percentage: 'sample', weakness: 'sample'}
+  })
+}
+
+const controller = {fetchQuestions, testResults}
 module.exports = {controller}

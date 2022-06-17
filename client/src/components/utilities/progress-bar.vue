@@ -1,38 +1,56 @@
 <template>
   <div class="container m-0 me-sm-3  p-0">
     <div class="circular-progress" id="progressBar" ref="progressBar">
-      <div class="progress-value">0%</div>
+      <div class="progress-value">{{getEndValue}}%</div>
     </div>
   </div>
 </template>
 
 <script>
+  import { mapGetters} from 'vuex'
   export default{
     name: 'progress-bar',
     data(){
       return{
-        speed:  15
+        speed:  150
       }
     },
-    async created(){
-      await this.$store.commit('progress') 
+    computed: mapGetters(['getEndValue']),
+    mounted(){ 
+      this.render() 
+    },
 
-      const progressBar = this.$refs.progressBar
-      const value = progressBar.firstElementChild
+    beforeUpdate(){
+      this.updateProgress()
+      this.render()
+    },
 
-      const progress = setInterval(()=>{
-        this.$store.state.cards.progressBar.progressValue++
-        value.textContent = `${this.$store.state.cards.progressBar.progressValue}%`
-  
-        progressBar.style.background = `conic-gradient(
-          #FF9601 ${this.$store.state.cards.progressBar.progressValue * 3.6}deg,
-          #e9ecef ${this.$store.state.cards.progressBar.progressValue * 3.6}deg
-        )`
-        
-        if(this.$store.state.cards.progressBar.progressValue === this.$store.state.cards.progressBar.endValue)
-          clearInterval(progress)
-      }, this.speed)
-    }
+    beforeUnmount(){        //reset answers
+      for (const key in this.$store.state.assessments.answers) 
+          delete  this.$store.state.assessments.answers[key];
+
+      this.$store.state.assessments.progressBar.progressValue = this.$store.state.assessments.progressBar.endValue = 0
+    },
+
+    methods:
+    {
+      updateProgress(){
+        this.$store.commit('progress')
+      },
+
+      async render(){
+        const progressBar = this.$refs.progressBar
+        const progress = setInterval(() =>{
+          progressBar.style.background = `conic-gradient(
+            #FF9601 ${this.$store.state.assessments.progressBar.progressValue * 3.6}deg,
+            #e9ecef ${this.$store.state.assessments.progressBar.progressValue * 3.6}deg
+          )`
+          
+          if(this.$store.state.assessments.progressBar.progressValue === this.$store.state.assessments.progressBar.endValue)
+            clearInterval(progress)
+        }, this.speed)
+      }
+    } 
   }
 </script>
 

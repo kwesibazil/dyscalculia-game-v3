@@ -77,7 +77,7 @@
         const current = target.closest('.nav-link')   //this gets the nearest anchor tag so it save the hassle of having to check the parent or grandparent
         const sideNavLinks = this.$refs.sideNavLinks
         const routerLinks = sideNavLinks.getElementsByClassName('nav-link')
-      
+    
         Array.from(routerLinks).forEach(link => {
           link.classList.remove('active')
           link.removeAttribute('aria-current');

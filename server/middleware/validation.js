@@ -46,9 +46,24 @@ const validateLogin = async (req, res, next) => {
   next()
 }
 
+const validateTestResults = async (req, res, next) => {
+
+  console.log(req.body)
 
 
 
-module.exports = {validateRegistration, validateLogin}
+//   const schema = Joi.object({
+//     log
+
+//   await schema.validateAsync(req.body, {abortEarly: true})
+//     .then(data => sanitize(req.body, data))
+
+//   next()
+}
+
+
+
+
+module.exports = {validateRegistration, validateLogin, validateTestResults}
 
 

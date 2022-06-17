@@ -35,28 +35,36 @@ const routes = [
         path: '/screener',
         name: 'screener',
         meta: { requiresAuth: true }, 
-        component: () => import('@/views/layouts/screener-layout.vue'),
+        component: () => import('@/views/layouts/screener/screener-layout.vue'),
         beforeEnter: [removeQueryParams]   
       },
       { 
         path: '/screener-test', 
         name: 'screener-test', 
         meta: { requiresAuth: true }, 
-        component: () => import('@/views/layouts/screener-test-layout.vue'),
+        component: () => import('@/views/layouts/screener/screener-test.vue'),
+        beforeEnter: [removeQueryParams],
+      },
+      
+      { 
+        path: '/screener-results', 
+        name: 'screener-results', 
+        meta: { requiresAuth: true }, 
+        component: () => import('@/views/layouts/screener/screener-results.vue'),
         beforeEnter: [removeQueryParams],
       },
       {
         path: '/practice',
         name: 'practice',
         meta: { requiresAuth: true }, 
-        component: () => import('@/views/layouts/practice-layout.vue'),
+        component: () => import('@/views/layouts/practice/practice-layout.vue'),
         beforeEnter: [removeQueryParams]   
       },
       {
         path: '/information',
         name: 'information',
         meta: { requiresAuth: true }, 
-        component: () => import('@/views/layouts/information-layout.vue'),
+        component: () => import('@/views/layouts/information/information-layout.vue'),
         beforeEnter: [removeQueryParams]   
       },
       {

@@ -1,5 +1,5 @@
 <template>
-  <div class="instruction shadow bg-white pt-2 px-2 px-sm-5 px-lg-0">
+  <div class="instruction shadow-sm bg-white  px-2 px-sm-5 px-lg-0">
     <div class="d-flex justify-content-center align-items-center ">
       <ProgressBar class="mx-2  align-self-lg-end " />
       <div class="py-lg-1">
