@@ -24,8 +24,7 @@
     name: 'screener-test',
     data(){
       return{
-        show: false,
-        outstandingQuestion: null
+        show: false
       }
     },
     components: {
@@ -37,25 +36,27 @@
     },
     methods:{
       submitQuestion(){
-      
+        const scrollTo  = []
+        let outstandingQuestion = null
         const questContainer = this.$refs.questionsContainer
         const questions = questContainer.getElementsByClassName('question')
 
         Array.from(questions).forEach(question =>{
           if(!question.hasAttribute('data-completed')){
-            this.outstandingQuestion++
+            outstandingQuestion++
+            scrollTo.push(question)
             question.classList.add('border-danger')
           } 
-          else{
-            this.outstandingQuestion--
+          else
             question.classList.remove('border-danger')
-          }
         })
 
-        if(this.outstandingQuestion <= 0)
+        if(outstandingQuestion <= 0)
           this.$store.dispatch('screenerResult')
-        else
-          this.show = !this.show
+        else{
+          this.show = true
+          scrollTo.shift().scrollIntoView({behavior: "smooth", block: "center"});
+        }
       }
     }
   }

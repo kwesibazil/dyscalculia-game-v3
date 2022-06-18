@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column align-items-center justify-content-center">
-    <div  v-for="(content, index) in getQuestion('questions').slice(0, 12)" :key="index" class="question d-inline-block border shadow-sm bg-white rounded-3 p-3 py-4 mb-5">
+    <div  v-for="(content, index) in getRootState('questions').slice(0, 12)" :key="index" :id="index" class="question d-inline-block border shadow-sm bg-white rounded-3 p-3 py-4 mb-5">
       <div class="d-flex flex-column justify-content-center">
         <div class="d-flex ">
           <h1 class="fs-6 fw-bold mb-0 ">{{index+1}}.</h1>
@@ -38,7 +38,7 @@
 
   export default{
     name: 'screener-question',
-    computed: mapGetters(['getQuestion']),
+    computed: mapGetters(['getRootState']),
     data(){
       return{
         end: 12,

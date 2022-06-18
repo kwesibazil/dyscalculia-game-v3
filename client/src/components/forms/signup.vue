@@ -42,7 +42,7 @@
         <button @click="toggleLoginForm('signIn')"  class="text-warning text-decoration-none btn btn-link btn-sm px-0  no-glow"  type="button">Login</button>
       </div>
       
-      <div v-if="isActive(payload)" :class="{'alert-danger':isActive(payload)}" class="alert d-flex flex-row-reverse justify-content-between align-items-center  py-1 my-2">
+      <div v-if="showFeedback(payload)" :class="{'alert-danger':showFeedback(payload)}" class="alert d-flex flex-row-reverse justify-content-between align-items-center  py-1 my-2">
         <button @click="closeAlert('signUp')" class="btn-close align-self-end py-2" type="button" aria-label="Close"></button>
         <span class="fs-6">{{feedbackMsg('signUp')}}</span> 
       </div>
@@ -71,7 +71,7 @@
     computed: {
         inputType(){ return this.type },
         hidePassword(){return this.isHidden},
-      ...mapGetters(['isActive', 'feedbackMsg']),
+      ...mapGetters(['showFeedback', 'feedbackMsg']),
 
     },
     methods:{

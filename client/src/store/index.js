@@ -7,7 +7,11 @@ import cards from './modules/cards'
 import assessments from './modules/assessments'
 
 export default createStore({                        //vuex-persist reducer will override state with default value
-  state: {                                         // if state is declare inside a module                               
+  state: {                                         // if state is declare inside a module  
+    games: [],
+    quizzes: [],                             
+    questions: [],
+    testimonies: [],
   },
   getters: {
   },
@@ -21,6 +25,6 @@ export default createStore({                        //vuex-persist reducer will 
     toggle,
     assessments
   },
-  //plugins:[vuexSession.plugin]
+  plugins:[vuexSession.plugin]
 })
 

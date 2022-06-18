@@ -41,7 +41,7 @@
         <span class="text-dark fs-8 opacity-75 me-1">Need an account?</span>
         <button  @click="toggleLoginForm('signUp')"  class="text-warning text-decoration-none btn btn-link btn-sm px-0 my-xl-2" type="button">Sign up</button>
       </div>
-      <div v-if="isActive(payload)" :class="{'alert-danger':isActive(payload)}" class="alert d-flex flex-row-reverse justify-content-between align-items-center  py-1 my-2">
+      <div v-if="showFeedback(payload)" :class="{'alert-danger':showFeedback(payload)}" class="alert d-flex flex-row-reverse justify-content-between align-items-center  py-1 my-2">
         <button @click="closeAlert('signIn')" class="btn-close align-self-end py-2" type="button" aria-label="Close"></button>
         <span class="fs-6">{{feedbackMsg('signIn')}}</span> 
       </div>
@@ -68,7 +68,7 @@
     computed: {
         inputType(){ return this.type },
         hidePassword(){return this.isHidden},
-      ...mapGetters(['isActive', 'feedbackMsg']),
+      ...mapGetters(['showFeedback', 'feedbackMsg']),
 
     },
     methods:{

@@ -3,22 +3,16 @@ import axiosInstance from "@/config/axios-config";
 export default{
   state: {
     answers: {},
-    questions: [],
     testResult: {},
-    submitBtn: false,
     progressBar:{ endValue: 0, progressValue: 0 },
   },
 
   getters: {
-    showSubmitBtn: state => state.submitBtn,
     getQuestion: state => elem => state[elem],
     getEndValue: state => state.progressBar.endValue
   },
   
   mutations: {
-    setResponse(state, payload){
-      payload.data.forEach(elem => state[payload.state].push(elem))
-    },
     setAnswers(state, payload){
       state.answers[payload.name] = payload.value
     },
@@ -28,35 +22,33 @@ export default{
     progress(state){
       const size =  12                                    //number of questions
       const temp =  state.progressBar.endValue
-      const length =  Object.keys(state.answers).length
       state.progressBar.progressValue =  (temp == 0) ? 0 : temp 
-      state.progressBar.endValue =  Math.round((length / size) * 100)
-
-      if(length == 12)
-        state.submitBtn = !state.submitBtn
-    }
-    
+      state.progressBar.endValue =  Math.round((Object.keys(state.answers).length / size) * 100)
+    }  
   },
 
   actions: {
     async fetchQuestions({commit}){
       try {
         const res = await axiosInstance.get('screener/questions')
-        await commit('setResponse', {data: res.data, state: 'questions'})
+        commit('setResult', {data: res.data, state: 'questions'}, {root: true})
       } catch (err) {
         console.log(err.response.data.err);
       }
     },
+    
     async screenerResult({commit, state}){
       try {
         const res = await axiosInstance.post('screener/answers', state.answers)
-        console.log(res.data)
-        await commit('setTestResults', res.data.results)
-        await commit('toggleModal', 'success', { root: true });
-        await commit('redirect', res.data.route, { root: true });
+        commit('setTestResults', res.data.results)
+        commit('setRedirectMsg', res.data.msg, {root: true})
+        commit('toggleModal', 'success', { root: true });
+        commit('redirect', {route: res.data.route, timeOut: 1000}, {root: true})
+        setTimeout(_ => commit('toggleModal', null, { root: true }), 1500 )   //close modal after
       } catch (err) {
           console.log(err.response.data.err);
       }
     }
   }
 }
+// use to access state in another module console.log(this.state.<module>.<state>);

@@ -1,62 +1,21 @@
-import router from '@/router/index'
 import axiosInstance from "@/config/axios-config";
 
 export default{
   state: {
-    register: null,  
-    redirectMsg: null,
     feedbackBox: { signIn: false, signUp: false }, 
     feedbackMsg: { signIn: null, signUp: null }, 
     alertDanger: { signIn: null, signUp: null }     
   },
   getters: {
-    redirectMsg: state => state.redirectMsg,
     feedbackMsg: state => form => state.feedbackMsg[form],
-    isLoggedIn: (state, getters, rootState) => rootState.isLoggedIn,
-    isActive: state => payload => state[payload.object][payload.property]
+    showFeedback: state => payload => state[payload.object][payload.property]
   },
   mutations: {
-    redirect(state, route){
-      console.log('redirect called')
-      setTimeout( _ => router.push({ name: route }) ,500)
-    },
-    
-  
     closeAlert(state, form){
       state.feedbackBox[form] = !state.feedbackBox[form]
     },
 
-    /**
-     * @note this is total a BS Hack Find a better way to do this
-     * @summary the issue at hand is that in the event the user access the
-     *          application via the Sign Up route --> this will set the redirect msg
-     *                  However
-     *         the problem stems from that after successfully registering the user
-     *         the registration action makes a calls to the login action --> this is to prevent the user from
-     *         having to re-enter their credentials  once again
-     *                However
-     *        the login actions also makes a call to the this mutation, thus overriding the earlier msg
-     *      
-     *      A possible solution would be to display a generic msg that conveys both registration and login feedback to the 
-     */
-    setRedirectMsg(state, data){
-      if(data.action === 'register'){
-        state.register = true
-        state.redirectMsg = data.msg
-      }
-
-      if(data.action === 'login' && !state.register)
-        state.redirectMsg = data.msg
-
-      this.state.toggle.currentModalForm = 'success'
-    },
-
-    /**
-     * @description 
-     *    data.form ---> this determines which form to display feedbackMsg
-     *    data.feedbackMsg -----> a string return from the server            
-     */
-    showFeedback(state, data){                
+    setFeedback(state, data){                
       state.feedbackBox[data.form] = true 
       state.alertDanger[data.form] =  true
       state.feedbackMsg[data.form] = data.feedbackMsg   
@@ -75,7 +34,7 @@ export default{
     async logout({commit}){
       try {
         const res = await axiosInstance.get('users/logout')
-        await commit ('redirect', res.data.route )
+        commit('redirect', {route: res.data.route, timeOut: 100}, {root: true})
       } catch (err) {
         console.log(err.response.data.err);
       }
@@ -95,13 +54,12 @@ export default{
     async register({commit, dispatch}, payload){
       try {
         const res = await axiosInstance.post('users/register', payload)
-        await commit('setRedirectMsg', {msg: res.data.msg, action: 'register'})
-        await dispatch('login', payload)
+        dispatch('login', payload)
       } catch (err) {
         if(err.response && err.response.status !== 500 )
-          commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signUp'})
+          commit('setFeedback', {feedbackMsg: err.response.data.err, form: 'signUp'})
         else
-          commit('showFeedback', {feedbackMsg: 'Registration Failed. Please Try Again!', form: 'signUp'})
+          commit('setFeedback', {feedbackMsg: 'Registration Failed. Please Try Again!', form: 'signUp'})
       }
     },
 
@@ -120,13 +78,13 @@ export default{
     async login({commit}, payload){
       try {
         const res = await axiosInstance.post('users/login', payload)
-        await commit('setRedirectMsg', {msg: res.data.msg, action: 'login'})
-        await commit('redirect', res.data.route)
+        commit('setRedirectMsg', res.data.msg, {root: true})
+        commit('redirect', {route: res.data.route, timeOut: 600}, {root: true})
       } catch (err) {
         if(err.response && err.response.status !== 500 )
-          commit('showFeedback', {feedbackMsg: err.response.data.err, form: 'signIn'})
+          commit('setFeedback', {feedbackMsg: err.response.data.err, form: 'signIn'})
         else
-          commit('showFeedback', {feedbackMsg: 'Login Failed. Please Try Again!', form: 'signIn' })
+          commit('setFeedback', {feedbackMsg: 'Login Failed. Please Try Again!', form: 'signIn'})
       }
     }
   }

@@ -14,7 +14,10 @@ const testResults = async (req, res) =>{
 
 
   res.status(StatusCodes.OK).json({
-    'msg': 'reach server ok',
+    "msg": {
+      "primaryMsg": "Thank you for your participation",
+      "secondaryMsg": "please wait a moment while we calculate your results"
+    }, 
     'route': 'screener-results',
     'results': {score: 'sample', percentage: 'sample', weakness: 'sample'}
   })
@@ -22,3 +25,15 @@ const testResults = async (req, res) =>{
 
 const controller = {fetchQuestions, testResults}
 module.exports = {controller}
+
+
+const loginSuccess = (req, res) => { 
+  console.log(req.session);
+  res.status(StatusCodes.OK).json({
+    "msg": {
+      "primaryMsg": "Welcome",
+      "secondaryMsg": "please wait a moment while we retrieve your files"
+    }, 
+    'route': 'dashboard'
+  })
+}

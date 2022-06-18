@@ -8,10 +8,13 @@ const loginFailure = (req, res) =>{
   })
 }
 
-const loginSuccess = (req, res) => {
-  // req.session.passport.user.LoggedIn = true
+const loginSuccess = (req, res) => { 
+  console.log(req.session);
   res.status(StatusCodes.OK).json({
-    'msg': 'Login Successful.', 
+    "msg": {
+      "primaryMsg": "Login Successful",
+      "secondaryMsg": "please wait a moment while we retrieve your files"
+    }, 
     'route': 'dashboard'
   })
 }
@@ -26,10 +29,7 @@ const loginStatus = (req, res) =>{
 const logout = (req, res) =>{ 
   // req.session.passport.user.LoggedIn = false
   req.logOut()
-  req.session.destroy(err => {
-    console.log(err);
-    res.status(StatusCodes.UNAUTHORIZED).json({"err": "something went wrong FAILED TO LOGOUT contact admin"})
-  })
+  req.session.destroy()
   res.status(StatusCodes.OK).json({'route': 'welcome'})
 }
 
@@ -51,7 +51,7 @@ const register = async (req, res) => {
     hash: hash
   })
   newUser.save()
-    .then(_ => res.status(StatusCodes.CREATED).json({"msg": "registration completed successfully."}))
+    .then(_ => res.status(StatusCodes.CREATED).json({"msg": 'testing'}))
     .catch(err => {
       res.status(StatusCodes.CONFLICT).json({"err": err.errors.email.message})
     })

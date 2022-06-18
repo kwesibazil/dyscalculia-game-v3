@@ -9,7 +9,7 @@
       '992': { slidesPerView: 2.2, spaceBetween: 20,},
       '1200': { slidesPerView: 2.7, spaceBetween: 20,}
     }">
-    <swiper-slide v-for="(slideContent, index) in getState('testimonies').slice(0, 6)" :key="index" :virtualIndex="index">
+    <swiper-slide v-for="(slideContent, index) in getRootState('testimonies').slice(0, 6)" :key="index" :virtualIndex="index">
         <div class="card border border-2 shadow mb-4" :class="slideContent.bootstrap">
           <img :src="slideContent.urlToImg"  class="card-img" alt="testimony"  style="max-height: 200px; min-height: 190px; min-width: ;" >
           <div class="card-img-overlay">
@@ -48,7 +48,7 @@
         modules: [Pagination],
       };
     },
-    computed: mapGetters(['getState'])
+    computed: mapGetters(['getRootState'])
   };
 </script>
 

@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { vue3Debounce } from 'vue-debounce'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -11,4 +12,5 @@ import './assets/scss/custom.scss'
 import './assets/css/custom.css'
 
 
-createApp(App).use(store).use(router).mount('#app')
+createApp(App).use(store).use(router).directive('debounce', vue3Debounce({ lock: true })).mount('#app')
+

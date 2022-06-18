@@ -2,17 +2,15 @@ import axiosInstance from "@/config/axios-config";
 
 export default{
   state: {
-    games: [],
-    testimonies: [],
   },
 
   getters: {
-    getState: state => elem => state[elem],
+    getRootState: (state, getters, rootState) => elem => rootState[elem]
   },
   
   mutations: {
     setResult(state, payload){
-      payload.data.forEach(elem => state[payload.state].push(elem))
+      payload.data.forEach(elem => this.state[payload.state].push(elem))
     }
   },
 
@@ -20,8 +18,7 @@ export default{
     async fetchTestimonies({commit}){
       try {
         const res = await axiosInstance.get('dashboard/testimonies')
-        await commit('setResult', {data: res.data, state: 'testimonies'})
-        
+        commit('setResult', {data: res.data, state: 'testimonies'})
       } catch (err) {
         console.log(err.response.data.err);
       }
@@ -30,10 +27,11 @@ export default{
     async fetchGame({commit}) {
       try {
         const res = await axiosInstance.get('dashboard/games')
-        await commit('setResult', {data: res.data, state: 'games'})
+        commit('setResult', {data: res.data, state: 'games'})
       } catch (err) {
         console.log(err.response);
       }
     },
   }
 }
+// use to access state in another module console.log(this.state.<module>.<state>);
