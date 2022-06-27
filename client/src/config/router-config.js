@@ -60,6 +60,19 @@ const routes = [
         component: () => import('@/views/layouts/practice/practice-layout.vue'),
         beforeEnter: [removeQueryParams]   
       },
+      { 
+        path: '/math-quiz', 
+        name: '/math-quiz', 
+        meta: { requiresAuth: true }, 
+        component: () => import('@/views/layouts/math-quiz/math-quiz-layout.vue'),
+        beforeEnter: [removeQueryParams],
+      },
+      { 
+        path: '/math-results', 
+        name: 'math-results', 
+        meta: { requiresAuth: true }, 
+        component: () => import('@/views/layouts/math-quiz/math-result.vue'),
+      },
       {
         path: '/information',
         name: 'information',

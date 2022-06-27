@@ -28,6 +28,11 @@ img{
 }
 
 
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 
 /*X-Small*/
 @media (max-width:575px){
@@ -73,6 +78,8 @@ img{
   fill: #fff;
 }.fill-success{
   fill: var(--bs-success);
+}.fill-dark{
+  fill: var(--bs-dark)
 }
 
 /*Additional padding size*/

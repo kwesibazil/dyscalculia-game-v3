@@ -10,7 +10,6 @@
       
         <Screener />
         <button @click="submitQuestion" class="btn btn-warning text-white mb-3 px-4" type="button">Submit</button>
-
       </div><!-- question-container ends here -->
     </section>
   </div><!-- root container ends here -->
@@ -32,7 +31,7 @@
       Screener
     },
     created(){
-      this.$store.dispatch('fetchQuestions')
+     
     },
     methods:{
       submitQuestion(){

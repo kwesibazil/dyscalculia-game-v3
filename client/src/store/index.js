@@ -4,7 +4,8 @@ import {vuexSession} from  '@/config/vue-persist-config'
 import toggle from './modules/toggle'
 import auth from './modules/auth'
 import cards from './modules/cards'
-import assessments from './modules/assessments'
+import screener from './modules/screener'
+import mathQuiz from './modules/math-quiz'
 
 export default createStore({                        //vuex-persist reducer will override state with default value
   state: {                                         // if state is declare inside a module  
@@ -23,8 +24,9 @@ export default createStore({                        //vuex-persist reducer will 
     auth,
     cards,
     toggle,
-    assessments
+    mathQuiz,
+    screener,
   },
-  plugins:[vuexSession.plugin]
+  //plugins:[vuexSession.plugin]
 })
 

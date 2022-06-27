@@ -7,7 +7,7 @@
             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
           </svg>
         </span>
-        <input type="email" v-model="input.email" class="form-control px-5 fs-6 rounded-2" name="email" autocomplete="username" placeholder="email"  required>
+        <input type="email" v-model="input.email" class="form-control px-5 fs-6 rounded-2 py-sm-2" name="email" autocomplete="username" placeholder="email"  required>
       </div><!-- email input-group ends here -->
     </div><!-- email container ends here -->
     <div>
@@ -17,7 +17,7 @@
             <path id="ic_lock_outline_24px" d="M7.511,8.022a.878.878,0,1,0-.878-.878A.88.88,0,0,0,7.511,8.022Zm2.633-3.95H9.706V3.194a2.194,2.194,0,1,0-4.389,0v.878H4.878A.88.88,0,0,0,4,4.95V9.339a.88.88,0,0,0,.878.878h5.267a.88.88,0,0,0,.878-.878V4.95A.88.88,0,0,0,10.145,4.072ZM6.151,3.194a1.361,1.361,0,0,1,2.721,0v.878H6.151Zm3.994,6.145H4.878V4.95h5.267Z" transform="translate(-4 -1)"/>
           </svg>
         </span>
-        <input :type="inputType" v-model="input.pwd"  class="form-control px-5 fs-6 rounded-2"  name="password" autocomplete="current-password"  placeholder="password" pattern="^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z]).{8,30}$" required>
+        <input :type="inputType" v-model="input.pwd"  class="form-control px-5 py-sm-2 fs-6 rounded-2"  name="password" autocomplete="current-password"  placeholder="password" pattern="^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z]).{8,30}$" required>
         <span class="passwordIcon">
           <svg @mousedown="toggleInputType('text')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash opacity-50" v-show="hidePassword"  viewBox="0 0 16 16">
             <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>

@@ -26,14 +26,3 @@ const testResults = async (req, res) =>{
 const controller = {fetchQuestions, testResults}
 module.exports = {controller}
 
-
-const loginSuccess = (req, res) => { 
-  console.log(req.session);
-  res.status(StatusCodes.OK).json({
-    "msg": {
-      "primaryMsg": "Welcome",
-      "secondaryMsg": "please wait a moment while we retrieve your files"
-    }, 
-    'route': 'dashboard'
-  })
-}

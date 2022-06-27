@@ -6,7 +6,12 @@
       <SideNav />
       <div class="d-flex flex-column flex-grow-1 overflow-auto h-100 pt-1">
 
-        <router-view/>
+        <router-view v-slot="{ Component }">
+          <transition name="fade">
+            <component :is="Component" />
+          </transition>
+        </router-view>
+
       </div>
     </div>
   </main>
@@ -25,6 +30,12 @@
       TopNav,
       SideNav
     },
+
+    mounted() {
+      this.$store.dispatch('fetchTestimonies')
+      this.$store.dispatch('fetchQuiz')
+      this.$store.dispatch('fetchQuestions')
+  },
   }
 </script>
 
@@ -34,4 +45,16 @@
   .height{
     min-height: 500px;
   }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition-duration: 0.3s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+  }
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0
+  }
+
 </style>

@@ -8,8 +8,7 @@ export default{
   },
 
   getters: {
-    getQuestion: state => elem => state[elem],
-    getEndValue: state => state.progressBar.endValue
+    getEndValue: state => state.progressBar.endValue, 
   },
   
   mutations: {
@@ -24,7 +23,7 @@ export default{
       const temp =  state.progressBar.endValue
       state.progressBar.progressValue =  (temp == 0) ? 0 : temp 
       state.progressBar.endValue =  Math.round((Object.keys(state.answers).length / size) * 100)
-    }  
+    }
   },
 
   actions: {
@@ -36,7 +35,7 @@ export default{
         console.log(err.response.data.err);
       }
     },
-    
+
     async screenerResult({commit, state}){
       try {
         const res = await axiosInstance.post('screener/answers', state.answers)
@@ -51,4 +50,4 @@ export default{
     }
   }
 }
-// use to access state in another module console.log(this.state.<module>.<state>);
+// use to access state in another module console.log(this.state.<module>.<state>)

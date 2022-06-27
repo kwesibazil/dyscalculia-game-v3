@@ -26,10 +26,10 @@
     },
 
     beforeUnmount(){        //reset answers
-      for (const key in this.$store.state.assessments.answers) 
-          delete  this.$store.state.assessments.answers[key];
+      for (const key in this.$store.state.screener.answers) 
+          delete  this.$store.state.screener.answers[key];
 
-      this.$store.state.assessments.progressBar.progressValue = this.$store.state.assessments.progressBar.endValue = 0
+      this.$store.state.screener.progressBar.progressValue = this.$store.state.screener.progressBar.endValue = 0
     },
 
     methods:
@@ -42,11 +42,11 @@
         const progressBar = this.$refs.progressBar
         const progress = setInterval(() =>{
           progressBar.style.background = `conic-gradient(
-            #FF9601 ${this.$store.state.assessments.progressBar.progressValue * 3.6}deg,
-            #e9ecef ${this.$store.state.assessments.progressBar.progressValue * 3.6}deg
+            #FF9601 ${this.$store.state.screener.progressBar.progressValue * 3.6}deg,
+            #e9ecef ${this.$store.state.screener.progressBar.progressValue * 3.6}deg
           )`
           
-          if(this.$store.state.assessments.progressBar.progressValue === this.$store.state.assessments.progressBar.endValue)
+          if(this.$store.state.screener.progressBar.progressValue === this.$store.state.screener.progressBar.endValue)
             clearInterval(progress)
         }, this.speed)
       }

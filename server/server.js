@@ -28,6 +28,7 @@ server.use(passport.session())  //uses the user property found on req.session.pa
 server.use('/api/v2/users', require('./routes/auth'))
 server.use('/api/v2/dashboard', require('./routes/dashboard'))
 server.use('/api/v2/screener', require('./routes/screener.js'))
+server.use('/api/v2/math-quiz/', require('./routes/quiz.js'))
 
 //404 Error && error handling
 server.use(require('./middleware/not-found'))
