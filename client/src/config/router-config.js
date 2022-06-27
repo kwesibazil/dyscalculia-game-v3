@@ -35,17 +35,9 @@ const routes = [
         path: '/screener',
         name: 'screener',
         meta: { requiresAuth: true }, 
-        component: () => import('@/views/layouts/screener/screener-layout.vue'),
+        component: () => import('@/views/layouts/screener/screener-test.vue'),
         beforeEnter: [removeQueryParams]   
       },
-      { 
-        path: '/screener-test', 
-        name: 'screener-test', 
-        meta: { requiresAuth: true }, 
-        component: () => import('@/views/layouts/screener/screener-test.vue'),
-        beforeEnter: [removeQueryParams],
-      },
-      
       { 
         path: '/screener-results', 
         name: 'screener-results', 
@@ -54,15 +46,15 @@ const routes = [
         beforeEnter: [removeQueryParams],
       },
       {
-        path: '/practice',
-        name: 'practice',
+        path: '/games',
+        name: 'games',
         meta: { requiresAuth: true }, 
-        component: () => import('@/views/layouts/practice/practice-layout.vue'),
+        component: () => import('@/views/layouts/games/games-layout.vue'),
         beforeEnter: [removeQueryParams]   
       },
       { 
         path: '/math-quiz', 
-        name: '/math-quiz', 
+        name: 'math-quiz', 
         meta: { requiresAuth: true }, 
         component: () => import('@/views/layouts/math-quiz/math-quiz-layout.vue'),
         beforeEnter: [removeQueryParams],

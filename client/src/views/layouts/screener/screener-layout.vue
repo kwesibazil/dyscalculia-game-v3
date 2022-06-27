@@ -24,7 +24,7 @@
       <span class="ms-2 text-muted fs-7">Takes approximately 15 minutes</span>
     </div>
     <div class="text-center">
-      <router-link to="/screener-test" class="align-self-md-center btn btn-warning text-white px-5 py-1 my-2 hvr-pulse-grow">Start</router-link>
+      <router-link to="/screener" class="align-self-md-center btn btn-warning text-white px-5 py-1 my-2 hvr-pulse-grow">Start</router-link>
     </div>
   </div><!-- container ends here -->
 </template>

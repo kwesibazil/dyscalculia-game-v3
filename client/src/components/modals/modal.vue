@@ -2,9 +2,9 @@
   <transition duration="550" name="nested">
     <div v-if="isVisible('modal')" class="overlay">
       <div class="modal d-flex flex-column shadow bg-light px-4 rounded-3 ">
-        <button @click="toggleModal()" class="btn-close align-self-end pt-3 pb-2" type="button" aria-label="Close"></button>
+        <button @click="toggleModal()" class="btn-close align-self-end pt-3 pb-2  my-2" type="button" aria-label="Close"></button>
 
-        <div class="flex-grow-1 my-3 ">
+        <div class="flex-grow-1 mb-3  ">
           <loginForm v-if="isVisible('currentModalForm') === 'loginForm'"/>
           <screenerForm v-else-if="isVisible('currentModalForm') === 'screenerForm'"/>
           <aptitudeForm v-else-if="isVisible('currentModalForm') === 'aptitudeForm'" /> 
@@ -61,7 +61,7 @@
     background-color: rgba(0, 0, 0, 0.4);
   }
   .modal { 
-    top: 5%;
+    top: 10%;
     z-index: 9;
     max-width: 90%;
     max-height: 75%;
@@ -73,6 +73,7 @@
 
   @media (min-width:576px){
     .modal{
+      top: 5%;
       max-height: 85%;
       max-width: 490px;
     }

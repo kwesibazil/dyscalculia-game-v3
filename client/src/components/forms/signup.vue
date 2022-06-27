@@ -1,5 +1,5 @@
 <template>
-  <form class="bg-white h-100 p-4 pb-0 mt-2 " @submit.prevent="submitForm">
+  <form class="bg-white h-100  p-3 p-sm-4 pb-0 mt-2 " @submit.prevent="submitForm">
     <div class="mb-5">
       <div class="input-group input-group-lg">
         <span class="inputIcon">

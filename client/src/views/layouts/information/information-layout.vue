@@ -34,7 +34,7 @@
       <section class="w-md-75 mb-3">
         <h2>We can help you to succeed and achieve</h2>
         <p>There is no cure for dyscalculia but with the right teaching and support, persons living with dyscalculia can overcome their difficulties with mathematics and achieve great things.</p>
-        <router-link to="/practice" class="btn btn-warning text-white">Try our online quiz games</router-link>
+        <router-link to="/games" class="btn btn-warning text-white">Try our online quiz games</router-link>
       </section>
     </div>
   </div>

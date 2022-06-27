@@ -1,6 +1,6 @@
 <template>
   <div>
-    practice
+    games
   </div>
 </template>
 
@@ -8,6 +8,6 @@
 
 <script>
   export default {
-    name: 'practice-layout',
+    name: 'games-layout',
   }
 </script>
