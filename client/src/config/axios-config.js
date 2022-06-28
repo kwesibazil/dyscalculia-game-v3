@@ -1,3 +1,4 @@
+import router from "@/router";
 import axios from "axios";
 
 const axiosInstance = axios.create({
@@ -17,9 +18,52 @@ const axiosInstance = axios.create({
 // e.g res.status(err.statusCode).json({'err': err.message})
 
 
-axiosInstance.interceptors.response.use(
-  response => (response), 
-  error => (Promise.reject(error))
-)
+const errorHandler = err =>{
+  let path = {}
 
+  switch(err.response.status){
+    case 401:
+      path = 'unauthorize-access'
+      break
+      
+    case 404: 
+      path = 'not-fround'
+      break
+
+    case 500: 
+      path = 'internal-error'; 
+      break;
+
+
+    default:
+      return (Promise.reject(err))
+
+  }
+
+  router.push(path)
+  return Promise.reject(err)
+}
+
+
+// case "parrot":
+//   console.log("I own a parrot");
+//   break;
+// default:
+//   console.log("I don't own a pet");
+//   break;
+
+
+
+axiosInstance.interceptors.response.use(response => (response), errorHandler)
 export default axiosInstance;
+
+
+
+
+
+// axiosInstance.interceptors.response.use(
+//   response => (response), 
+//   error => (Promise.reject(error))
+// )
+
+

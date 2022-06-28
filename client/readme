@@ -1,0 +1,8 @@
+# How to setup environment variables
+
+first, create an .env.local file in the root directory. 
+Then supply the following env variable 
+
+VUE_APP_AXIOS_BASE_URL   //Baseurl to server --example <http://localhost:3030/api/>
+VUE_APP_TITLE            //Title of webpage
+

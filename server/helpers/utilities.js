@@ -1,8 +1,8 @@
-const { NotFoundError } = require("../errors")
+const { NoContentError } = require("../errors")
 
 const isEmpty = result =>  {
   if (result == null) 
-    throw new NotFoundError()
+    throw new NoContentError()
   else
     return false
 }

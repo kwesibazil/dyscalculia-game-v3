@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-2">
       <div class="container-fluid">
         <div class="d-flex justify-content-between justify-content-lg-start col">
-          <button @click="toggleSideNav" class="navbar-toggle me-3" type="button">
+          <button @click="toggleSideNav(true)" class="navbar-toggle me-3" type="button">
             <span class="navbar-toggler-icon "></span>
           </button>
           <router-link to="/" class="my-auto hvr-grow">

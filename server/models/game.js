@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
+
 const GameSchema = new mongoose.Schema({
   title: {
     trim: true,
@@ -9,18 +10,17 @@ const GameSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
-  img: {
+  urlToImg: {
     trim: true,
     type: String,
     required: true,
-    default: 'http://drive.google.com/uc?export=view&id=1vpA77KIhwm_vAezpX1kbdFYhaoUgdUKw'
   },
-  text: {
+  rules: {
     trim: true,
     type: String,
     required: true
   },
-  body: {
+  description: {
     trim: true,
     type: String,
     required: true,

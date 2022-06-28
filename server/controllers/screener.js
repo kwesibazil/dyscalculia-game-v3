@@ -4,7 +4,7 @@ const {StatusCodes} = require('http-status-codes')
 const {isEmpty} = require('../helpers/utilities')
 
 const fetchQuestions = async (req, res) =>{
-  const result = await Question.find({}).limit()
+  const result = await Question.find({}).select(['-_id']).limit()
   if(!isEmpty(result))
     res.status(StatusCodes.OK).json(result)  
 }

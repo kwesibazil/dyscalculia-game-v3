@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store/index'
-import { routes } from '@/config/router-config'
+import { routes } from '@/router/routes'
 
 
 const router = createRouter({
@@ -22,7 +22,6 @@ const router = createRouter({
     else
       next()
   })
-  
 })
 
 

@@ -1,5 +1,7 @@
-const {StatusCodes} = require('http-status-codes')
+const {NotFoundError} = require('../errors')
 
-const notFound = (req, res) => res.status(StatusCodes.NOT_FOUND).json({"err":"404 Page Not Found"})
+const notFound = (req, res) => { throw new NotFoundError('Route does not exist')}
 
 module.exports = notFound
+
+

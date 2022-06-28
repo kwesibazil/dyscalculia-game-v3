@@ -11,12 +11,12 @@ const sessionStore = MongoStore.create({
   touchAfter: 24 * 3600,     //updated only one time in a period of 24 hours, does not matter how many request's are made (with the exception of those that change something on the session data)
   autoRemove: 'interval',   // set to disable in production environnement
   autoRemoveInterval: 10,    //remove in  production environnement
-  crypto: {secret: process.env.SESSION_SECRET}
+  crypto: {secret: process.env.SESSION_STORE_SECRET}
 })
 
 
 const sessionOptions = {
-  secret: process.env.DEVELOPMENT_SECRET,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   store: sessionStore,

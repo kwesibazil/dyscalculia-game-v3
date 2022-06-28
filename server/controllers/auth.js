@@ -3,10 +3,11 @@ const {StatusCodes} = require('http-status-codes')
 const {genPassword}  = require('../helpers/passwordUtils.js')
 
 const loginFailure = (req, res) =>{
-  res.status(StatusCodes.UNAUTHORIZED).json({
+  res.status(StatusCodes.FORBIDDEN).json({
     'err': 'Incorrect email or password'
   })
 }
+
 
 const loginSuccess = (req, res) => { 
   console.log(req.session);
@@ -19,11 +20,12 @@ const loginSuccess = (req, res) => {
   })
 }
 
+
 const loginStatus = (req, res) =>{
   if(req.isAuthenticated)
     res.status(StatusCodes.OK).json({'isAuthenticated': req.isAuthenticated()})
   else
-    res.status(StatusCodes.UNAUTHORIZED).json({"err": "something went wrong with loginStatus"})
+    res.status(StatusCodes.UNAUTHORIZED).json({"err": "something went wrong with passport js"})
 }
 
 const logout = (req, res) =>{ 
@@ -51,7 +53,7 @@ const register = async (req, res) => {
     hash: hash
   })
   newUser.save()
-    .then(_ => res.status(StatusCodes.CREATED).json({"msg": 'testing'}))
+    .then(_ => res.status(StatusCodes.CREATED).json({"msg": 'registration success'}))
     .catch(err => {
       res.status(StatusCodes.CONFLICT).json({"err": err.errors.email.message})
     })

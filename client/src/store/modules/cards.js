@@ -17,21 +17,22 @@ export default{
   actions: {
     async fetchTestimonies({commit}){
       try {
-        const res = await axiosInstance.get('dashboard/testimonies')
+        const res = await axiosInstance.get('games/testimonies')
         commit('setResult', {data: res.data, state: 'testimonies'})
       } catch (err) {
-        console.log(err.response.data.err);
+        commit('redirect', {route: 'internal-error', timeOut: 0}, {root: true})
       }
     },
 
     async fetchGame({commit}) {
       try {
-        const res = await axiosInstance.get('dashboard/games')
+        const res = await axiosInstance.get('games/games-info')
         commit('setResult', {data: res.data, state: 'games'})
       } catch (err) {
-        console.log(err.response);
+        commit('redirect', {route: 'internal-error', timeOut: 0}, {root: true})
       }
     },
   }
 }
 // use to access state in another module console.log(this.state.<module>.<state>);
+

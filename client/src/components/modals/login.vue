@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <h1 class="fs-6 fw-bold mb-0 text-center">Please login to continue</h1>
+    <h1 class="fs-6 fw-bold mb-3 text-center">Please login to continue</h1>
     <div class="bg-white border border-top-0 my-2 ">
       <div class="d-flex">
         <div class="d-grid w-50">

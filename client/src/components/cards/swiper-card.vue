@@ -11,7 +11,7 @@
     }">
     <swiper-slide v-for="(slideContent, index) in getRootState('testimonies').slice(0, 6)" :key="index" :virtualIndex="index">
         <div class="card border border-2 shadow mb-4" :class="slideContent.bootstrap">
-          <img :src="slideContent.urlToImg"  class="card-img" alt="testimony"  style="max-height: 200px; min-height: 190px; min-width: ;" >
+          <img :src="slideContent.urlToImg"  class="card-img" alt="testimony"  style="max-height: 200px; min-height: 190px;" >
           <div class="card-img-overlay">
             <div class="d-flex flex-column justify-content-center px-4">
               <span class="align-self-end fs-8">{{slideContent.gender}} {{slideContent.age}}</span>

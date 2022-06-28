@@ -31,8 +31,11 @@ export default{
       state.loginForm.active = form === 'signIn' ? true : false
     },
 
-    toggleSideNav (state) {
-      state.sideNav = !state.sideNav
+    toggleSideNav (state, collapse) {
+      const innerWidth =  window.innerWidth
+
+      if(collapse || innerWidth < 768)
+        state.sideNav = !state.sideNav
     }, 
 
     async redirect(state, payload){

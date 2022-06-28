@@ -1,5 +1,5 @@
 const Joi = require('joi')
-const {BadRequestError, UnauthorizedError, } = require('../errors')
+const {BadRequestError, ForbiddenError} = require('../errors')
 const {sanitize} = require('./sanitize')
 
 
@@ -38,7 +38,7 @@ const validateLogin = async (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
     pwd: Joi.string().trim().min(8).max(30).regex(/^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])[\w\s@$!%*#^?&]{8,30}$/).required()
-  }).error(_ => {throw new UnauthorizedError('Incorrect email or password.')})
+  }).error(_ => {throw new ForbiddenError('Incorrect email or password.')})
 
   await schema.validateAsync(req.body, {abortEarly: true})
     .then(data => sanitize(req.body, data))
@@ -46,11 +46,12 @@ const validateLogin = async (req, res, next) => {
   next()
 }
 
+
+
+
 const validateTestResults = async (req, res, next) => {
 
   console.log(req.body)
-
-
 
 //   const schema = Joi.object({
 //     log
