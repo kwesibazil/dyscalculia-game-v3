@@ -5,7 +5,7 @@
     <div class="text-center pt-5">
       <img src="@/assets/img/lg-logo.png" class="img-fluid mx-auto" alt="dyscalculia">
       <p class="overflow-hidden my-3 mx-auto landing__p">Hello participants, we are inviting you to participate 
-        in our <strong>undergraduate research</strong> on Dyscalculia and Game-Based Learning. We thank you in advance for your participation. Please be advised that the data collected will remain confidential and used <strong>solely for academic purposes</strong>.</p>
+        in our <strong>undergraduate research</strong> on Dyscalculia and Game-Based Learning. We thank you in advance for your participation. Please be assured that the data collected will remain confidential and used <strong>solely for academic purposes</strong>.</p>
       <button @click="toggleModal('researchForm')" class="btn btn-primary my-4 text-white hvr-glow" type="button">Learn more</button>
     </div>
   </div>

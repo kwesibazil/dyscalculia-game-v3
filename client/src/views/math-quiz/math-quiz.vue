@@ -20,7 +20,7 @@
           <button v-else @click="updateQuiz('back')" class="btn btn-outline-secondary mb-3 px-4 me-4" type="button">Back</button>
         </div>
         <div>
-          <button v-if="getQuizValue(this.submitBtn)" @click="submitQuiz"  class="btn btn-warning text-white mb-3 px-4" type="button">Submit</button>
+          <button v-if="getQuizValue(this.submitBtn)" @click="submitQuiz"  class="btn btn-warning text-white mb-3 px-4" type="submit">Submit</button>
           <button v-else @click="updateQuiz('next')" class="btn btn-dark  mb-3 px-4" type="button">Next</button>
         </div>
       </div>
@@ -54,11 +54,24 @@
       Quiz
     },
     methods:{
-      ...mapMutations(['updateQuizIndex', 'submitQuiz']),
+      ...mapMutations(['updateQuizIndex', 'resetQuizValues']),
 
       cancelQuiz(){
         this.$router.push({name:'dashboard'})
       },  
+
+      submitQuiz(){
+        const tempAnswer =  this.$store.state.mathQuiz.tempAnswer
+
+        if(Object.keys(tempAnswer).length === 0){
+          this.$store.state.mathQuiz.showAlert = true
+          return
+        }
+
+        this.$store.state.mathQuiz.quizAnswers[tempAnswer.name] = tempAnswer.value
+        this.$store.dispatch('submitQuiz')
+      },
+
 
       async updateQuiz(btn){
         await this.$store.commit('updateQuizIndex', btn)
@@ -83,6 +96,9 @@
           this.$store.commit('updateAptitudeProgressBar', {object:'completed', property:'appliedProblems', value: true})
         }
       }
+    },
+    beforeUnmount(){
+      this.$store.commit('resetQuizValues')
     }
   }
 </script>

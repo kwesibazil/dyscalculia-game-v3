@@ -3,7 +3,6 @@ import axiosInstance from "@/config/axios-config";
 export default{
   state: {
     answers: {},
-    testResult: {},
     progressBar:{ endValue: 0, progressValue: 0 },
   },
 
@@ -14,9 +13,6 @@ export default{
   mutations: {
     setAnswers(state, payload){
       state.answers[payload.name] = payload.value
-    },
-    setTestResults(state, results){
-      state.testResult = results
     },
     progress(state){
       const size =  12                                    //number of questions
@@ -36,10 +32,10 @@ export default{
       }
     },
 
-    async screenerResult({commit, state}){
+    async submitQuestions({commit, state}){
       try {
         const res = await axiosInstance.post('screener/answers', state.answers)
-        commit('setTestResults', res.data.results)
+        commit('setResults', res.data.results, {root: true})
         commit('setRedirectMsg', res.data.msg, {root: true})
         commit('toggleModal', 'success', { root: true });
         commit('redirect', {route: res.data.route, timeOut: 1000}, {root: true})

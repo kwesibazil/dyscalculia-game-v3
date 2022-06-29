@@ -13,10 +13,16 @@ export default createStore({                        //vuex-persist reducer will 
     quizzes: [],                             
     questions: [],
     testimonies: [],
+    screenerResults:[],
+    mathQuizResults:[]
   },
   getters: {
+    
   },
   mutations: {
+    setResults(state, results){
+      state[results.name] = results
+    },
   },
   actions: {
   },

@@ -10,10 +10,9 @@
       </div>
     </section>
     <section class="d-flex flex-column pb-3 mt-2 pt-2">
-      <div class="d-flex justify-content-between px-1">
+      <div class="d-flex justify-content-between px-1 mb-3 mb-sm-0">
         <h2 class="fs-5 fw-bold mb-lg-0">Math Practice</h2>
         <button  @click="toggleModal('aptitudeForm')" class="btn btn-sm  py-1 btn-primary fs-7 text-white hvr-pulse-grow" type="button">Math quiz</button>
-
       </div>
       <p class="text-muted text-center mb-3 py-">What do you want to practice today?</p>
       <GameCard />

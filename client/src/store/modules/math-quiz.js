@@ -2,24 +2,12 @@ import axiosInstance from "@/config/axios-config";
 
 export default{
   state: {
-    btn:{
-      submit: false,
-      cancel: true,
-    },
     showAlert: false,
-    quizResults:{},
     tempAnswer: {},
     quizAnswers: {},
-
-    
     quiz: {index: 0, length: null},
-    completed:{
-      mentalMath: null,
-      mathFluency: null,
-      appliedProblems: null,
-    }
-
-
+    btn:{submit: false, cancel: true,},
+    completed:{mentalMath: null, mathFluency: null, appliedProblems: null,}
   },
 
   getters: {
@@ -28,6 +16,21 @@ export default{
   },
   
   mutations: {
+
+    /* reset value in lifecycle hook beforeUnmount */
+    resetQuizValues(state){
+      console.log('reset quiz value called');
+      state.quiz.index = 0
+      state.btn.submit = true
+      state.btn.submit = false
+      state.tempAnswer = {}
+      state.showAlert = false
+      state.completed.mentalMath = null
+      state.completed.mathFluency = null
+      state.completed.appliedProblems = null
+    },
+
+
     setQuizLength(state, length){
       state.quiz.length = length
     },
@@ -36,34 +39,9 @@ export default{
       state.tempAnswer = payload
     },
 
-    setQuizResults(state, results){
-      state.quizResults = results
-    },
 
-    setCluster(state, cluster){
-      state.cluster = cluster
-    },
-    
     updateAptitudeProgressBar(state, payload){
       state[payload.object][payload.property] = payload.value
-    },
-
-    submitQuiz(state){
-      if(Object.keys(state.tempAnswer).length === 0){
-        state.showAlert = true
-        console.log('empty submit');
-        return
-      }
-      
-      state.quizAnswers[state.tempAnswer.name] = state.tempAnswer.value
-      const answers =  state.quizAnswers
-      console.log( answers);
-
-      // answers.forEach(answer => {
-      //   console.log(answer);
-      // })
-
-
     },
 
     updateQuizIndex(state, payload){
@@ -102,24 +80,23 @@ export default{
         console.log(err.response.data.err);
       }
     },
-    
-    // async QuizResult({commit, state}){
-    //   try {
-      //     const res = await axiosInstance.post('screener/answers', state.answers)
-      //     commit('setTestResults', res.data.results)
-    //     commit('setRedirectMsg', res.data.msg, {root: true})
-    //     commit('toggleModal', 'success', { root: true });
-    //     commit('redirect', {route: res.data.route, timeOut: 1000}, {root: true})
-    //     setTimeout(_ => commit('toggleModal', null, { root: true }), 1500 )   //close modal after
-    //   } catch (err) {
-    //       console.log(err.response.data.err);
-    //   }
-    // }
-    
-    
+
+
+    async submitQuiz({commit, state}){
+      try {
+        const res = await axiosInstance.post('math-quiz/answers', state.quizAnswers)
+        commit('setResults', res.data.results, {root: true})
+        commit('setRedirectMsg', res.data.msg, {root: true})
+        commit('toggleModal', 'success', { root: true });
+        commit('redirect', {route: res.data.route, timeOut: 1000}, {root: true})
+        setTimeout(_ => commit('toggleModal', null, { root: true }), 1500 )   //close modal after
+      } catch (err) {
+          console.log(err.response.data.err);
+      }
+    }
+      
   }
 }
 // use to access state in another module console.log(this.state.<module>.<state>)
 //state.quiz.index = (payload == 'next') ? state.quiz.index++ : state.quiz.index--
-
 //👉️

@@ -58,6 +58,18 @@ const routes = [
         component: () => import('@/views/games/games.vue'), 
       },
       { 
+        path: '/games/math-crush',
+        name: 'math-crush',
+        meta: { requiresAuth: true }, 
+        component: () => import('@/views/games/math-crush.vue') 
+      },
+      { 
+        path: '/games/math-puzzle',
+        name: 'math-puzzle',
+        meta: { requiresAuth: true }, 
+        component: () => import('@/views/games/math-puzzle.vue') 
+      },
+      { 
         path: '/math-quiz', 
         name: 'math-quiz', 
         meta: { requiresAuth: true }, 

@@ -60,7 +60,7 @@ export default{
         const res = await axiosInstance.post('users/login', {email, pwd})
         
         commit('setRedirectMsg', res.data.msg, {root: true})
-        commit('redirect', {route: res.data.route, timeOut: 600}, {root: true})
+        commit('redirect', {route: res.data.route, timeOut: 1000}, {root: true})
       }catch (err) {
         commit('setFeedback', {feedbackMsg: err.response.data.err, form: 'signIn'})
       }

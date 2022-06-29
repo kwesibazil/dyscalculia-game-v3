@@ -1,12 +1,21 @@
 <template>
   <div class="d-flex flex-column h-100 px-3">
-    <div class="">
-      <h1 class="fs-5">TO do HEADING Games</h1>
+    
+    <div class="shadow-sm bg-white mb-3">
+      <div class="d-flex flex-column justify-content-center align-items-center mx-auto col col-sm-10 p-2 p-sm-3">
+        <h1 class="fs-5 fw-bold text-center">Dyscalculic Games</h1>
+        <p class="col col-sm-10 px-2 px-sm-0 mb-0 text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis iusto, enim iure nisi minus sunt ea expedita eius praesentium .</p>
+      </div>
     </div>
-    <section class="flex-grow-1 d-flex align-items-center overflow-auto ">
-      <GameCard />
+    
+    <section class="flex-grow-1 py-2 d-flex flex-column overflow-hidden">
+      <p class="text-muted px-2 text-center mb-3">Below are some sample games design to teach money management to dyscalculic adults</p>
+      <div class="mt-sm-3 pt-2  games-container overflow-auto flex-grow-1 ">
+        <GameCard />
+      </div>
     </section>
-  </div>
+
+  </div><!-- root container ends here -->
 </template>
 
 
@@ -24,18 +33,18 @@
 <style scoped>
 
     /* width */
-  section::-webkit-scrollbar {
+  .games-container::-webkit-scrollbar {
     width: 8px;
   }
 
   /* Track */
-  section::-webkit-scrollbar-track {
+  .games-container::-webkit-scrollbar-track {
     background: rgb(187, 185, 185); ;
   }
 
   /* Handle*/
-  section::-webkit-scrollbar-thumb, section::-webkit-scrollbar-thumb:hover {
-    background: var(--bs-primary);
+  .games-container::-webkit-scrollbar-thumb, .games-container::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-warning);
   }
 </style>
 

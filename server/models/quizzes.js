@@ -8,7 +8,12 @@ const QuizSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
-  
+  name: {
+    trim: true, 
+    type: String,
+    unique: true,
+    required: true
+  }, 
   optionA:{
     type: Number, 
     min: 0, 

@@ -9,20 +9,24 @@ const fetchQuestions = async (req, res) =>{
     res.status(StatusCodes.OK).json(result)  
 }
 
-const testResults = async (req, res) =>{
+const detection = async (req, res) =>{
+  console.log('screener answers in controller');
   console.log(req.body);
-
 
   res.status(StatusCodes.OK).json({
     "msg": {
       "primaryMsg": "Thank you for your participation",
-      "secondaryMsg": "please wait a moment while we calculate your results"
+      "secondaryMsg": "please wait a moment while we determine your results"
     }, 
     'route': 'screener-results',
-    'results': {score: 'sample', percentage: 'sample', weakness: 'sample'}
+    'results': {
+      name: 'screenerResults', 
+      msg: 'Testing screener results return',
+      todo: 'chore: -- implement controller logic '
+    }
   })
 }
 
-const controller = {fetchQuestions, testResults}
+const controller = {fetchQuestions, detection}
 module.exports = {controller}
 

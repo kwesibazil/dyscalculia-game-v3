@@ -38,7 +38,6 @@
       redirectSuccess
     },
     beforeUnmount(){
-      console.log('beforeUnmount is called')
       this.$store.commit('resetModal')
     }
 

@@ -10,6 +10,6 @@ const {checkLoggedIn, validRoute}  = require('../middleware/authentication')
 
 /** @route /api/v2/screener*/
 router.get('/questions',  checkLoggedIn, controller.fetchQuestions)
-router.post('/answers', checkLoggedIn, controller.testResults)
+router.post('/answers', checkLoggedIn, controller.detection)
 
 module.exports = router

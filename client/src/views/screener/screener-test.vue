@@ -49,7 +49,7 @@
         })
 
         if(outstandingQuestion <= 0)
-          this.$store.dispatch('screenerResult')
+          this.$store.dispatch('submitQuestions')
         else{
           this.show = true
           scrollTo.shift().scrollIntoView({behavior: "smooth", block: "center"});

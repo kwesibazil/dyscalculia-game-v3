@@ -20,6 +20,10 @@ const GameSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  available:{
+    type: Boolean,
+    default: false
+  },
   description: {
     trim: true,
     type: String,
