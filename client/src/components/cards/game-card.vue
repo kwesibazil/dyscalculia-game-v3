@@ -26,7 +26,6 @@
       startGame(e){
         const target = e.target
         const path = target.getAttribute('data-to')
-        console.log(path);
         this.$router.push(`/games/${path}`)
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="d-flex align-items-center justify-content-center h-100 bg-dark">
+  <div class="d-flex align-items-center justify-content-center h-100 bg-dark">
     <div class="d-flex flex-column justify-content-center align-items-center h-75 pb-5 pb-sm-0">
       <img src="@/assets/img/sm-logo-white.png" alt="logo">
       <h1 class="text-white text-center mt-4  fs-4">Loading</h1>
@@ -13,15 +13,6 @@
 <script>
   export default{
     name: 'game-loading',
-    data(){
-      return{
-        loading: true
-      }
-    },
-
-    mounted(){
-      setTimeout(_ => this.loading = false, 4500)
-    }
   }
 
 </script>

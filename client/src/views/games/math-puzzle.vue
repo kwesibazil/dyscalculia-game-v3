@@ -1,9 +1,8 @@
 <template>
   <div class="h-100 ">
-    <Loader />
+    <Loader v-if="loading"/>
 
-  
-    <div>
+    <div v-else >
       math puzzle
     </div>
   </div>
@@ -15,8 +14,16 @@
 
   export default{
     name: 'math-puzzle',
+    data(){
+      return{
+        loading: true
+      }
+    },
     components:{
       Loader
+    },
+    mounted(){
+      setTimeout(_ => this.loading = false, 4500)
     }
   }
 

@@ -1,6 +1,6 @@
 <template>
   <div id="options" ref="options" class="d-flex flex-column align-items-center justify-content-center">
-    <TransitionGroup name="slide-fade" mode="out-in" tag="ul" class="list-group">
+    <TransitionGroup name="slide-fade"  tag="ul" class="list-group">
       <li v-for="(quiz, index) in getRootState('quizzes').slice(getQuizValue(this.quizIndex), getQuizValue(this.quizIndex)+1)" :key="index"
        class="list-group-item  quiz border shadow-sm  rounded rounded-4 p-4" :class="{'border border-1 border-danger' :showQuizErr }">
 
@@ -99,7 +99,6 @@
       width: 450px;
     }
   }
-
 
   .btn-check:checked + .btn-outline-warning, 
   .btn-check:checked + .btn-outline-primary,

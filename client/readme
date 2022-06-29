@@ -3,6 +3,12 @@
 first, create an .env.local file in the root directory. 
 Then supply the following env variable 
 
-VUE_APP_AXIOS_BASE_URL   //Baseurl to server --example <http://localhost:3030/api/>
-VUE_APP_TITLE            //Title of webpage
+##Axios
+```
+VUE_APP_AXIOS_BASE_URL 
+```
 
+##Page Title
+```
+VUE_APP_TITLE         
+```

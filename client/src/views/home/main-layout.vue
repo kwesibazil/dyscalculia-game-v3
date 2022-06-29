@@ -8,7 +8,7 @@
 
         <router-view v-slot="{ Component }">
           <transition name="fade">
-            <component :is="Component" />
+            <component :is="Component" mode="out-in"/>
           </transition>
         </router-view>
 
@@ -46,13 +46,13 @@
   .height{
     min-height: 500px;
   }
-
-  .fade-enter-active, .fade-leave-active {
-    transition-duration: 0.3s;
-    transition-property: opacity;
-    transition-timing-function: ease;
+.fade-enter-active {
+  transition: opacity .5s ease;
+}
+.fade-leave-active {
+    transition: opacity .2s linear;
   }
-  .fade-enter, .fade-leave-active {
+  .fade-enter-from, .fade-leave-to {
     opacity: 0
   }
 
