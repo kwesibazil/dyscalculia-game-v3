@@ -38,6 +38,24 @@ input::-ms-clear {
   display: none;
 }
 
+.square-red{
+  background-color: var(--bs-danger);
+}
+.square-pink{
+  background-color: var(--bs-pink);
+}
+.square-yellow{
+  background-color: var(--bs-yellow);
+}
+.square-green{
+  background-color: var(--bs-success);
+}
+.square-purple{
+  background-color: var(--bs-purple);
+}
+.square-orange{
+  background-color: var(--bs-warning);
+}
 
 /*X-Small*/
 @media (max-width:575px){

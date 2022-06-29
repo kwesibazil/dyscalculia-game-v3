@@ -1,19 +1,20 @@
 <template>
   <div class="h-100 "  ref="grid">
     <Loader v-if="loading"/>
-
- <!-- v-show="!loading" -->
     <div v-else class="d-flex justify-content-center align-items-center w-100 h-100 px-3">
       <draggable  class="grid h-75 " >
         <transition-group>
-          <div v-for="(square, index) in 64" :key="index" class=" bg-primary rounded rounded-3 border d-flex justify-content-center align-items-center">
-            <Square />
+          <div v-for="(square, index) in 64" :id="index" :key="index" class="dragItem bg-primary rounded rounded-3 border d-flex justify-content-center align-items-center">
+            
+            <Square @drop="dragDrop" @dragstart="dragStart" @dragend="dragEnd"/>
+          
+
           </div>
         </transition-group>
       </draggable>
     </div>
     
-  
+
 
 
   </div>
@@ -31,12 +32,18 @@
     name: 'math-crush',
     data(){
       return{
-        timeout: 4500,
+        timeout: 100,
         loading: true,
+        squares: [],
+        colourBeingDragged: null,
+        colourBeingReplaced: null,
+        squareIDBeingDragged: null,
+        squareIDBeingReplaced: null,
+
         squareColours:
         [
           'square-red',
-          'square-blue',
+          'square-pink',
           'square-yellow',
           'square-green',
           'square-purple',
@@ -52,19 +59,68 @@
     },
     methods: {
       createGrid(){
-
         setTimeout(_ =>{
             const grid = this.$refs.grid
             const squares = grid.getElementsByClassName('square')
-      
+
             Array.from(squares).forEach(square =>{
               const rand =  Math.floor(Math.random() * this.squareColours.length)
               const colour = this.squareColours[rand]
-              square.classList.toggle(colour)
+              square.classList.toggle(colour) 
               square.setAttribute('draggable', true)
+              square.setAttribute('data-colour', colour)
+              this.squares.push(square)
             })
         }, this.timeout+50)
-      }
+      },
+
+
+      dragStart(e){
+        const dragItem = e.target.closest('.dragItem')
+        const square =  dragItem.firstElementChild
+        this.squareIDBeingDragged = parseInt(dragItem.getAttribute('id'))
+        this.colourBeingDragged =  square.dataset.colour
+      },
+
+      // dragOver(){},
+      // dragEnter(){},
+      // dragLeave(){},
+
+
+      dragDrop(e){
+        const dragItem = e.target.closest('.dragItem')
+        const square =  dragItem.firstElementChild
+
+        this.colourBeingReplaced = square.dataset.colour
+        this.squareIDBeingReplaced = parseInt(dragItem.getAttribute('id'))
+
+        square.classList.replace(this.colourBeingReplaced, this.colourBeingDragged) 
+        square.dataset.colour = this.colourBeingDragged 
+
+        this.squares[this.squareIDBeingDragged].classList.replace( this.colourBeingDragged, this.colourBeingReplaced)
+        this.squares[this.squareIDBeingDragged].dataset.colour = this.colourBeingReplaced
+
+      },
+
+
+
+      dragEnd(e){
+        
+       // console.log('dragEnd');
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
     },
 
     mounted(){
@@ -103,24 +159,7 @@
     width: 12.5%;
   }
 
-  .square-red{
-    background-color: var(--bs-danger);
-  }
-  .square-blue{
-    background-color: var(--bs-dark);
-  }
-  .square-yellow{
-    background-color: rgb(250, 227, 24);
-  }
-  .square-green{
-    background-color: var(--bs-success);
-  }
-  .square-purple{
-    background-color: rgb(201, 6, 120);
-  }
-  .square-orange{
-    background-color: var(--bs-warning);
-  }
+
 
 
 </style>
