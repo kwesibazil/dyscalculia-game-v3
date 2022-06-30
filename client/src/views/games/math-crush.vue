@@ -90,7 +90,6 @@
 
       dragEnd(){
         console.log('drag end');
-
         let validMoves = [
           this.squareIdBeingDragged -1,
           this.squareIdBeingDragged +1,
@@ -112,8 +111,34 @@
           this.squares[this.squareIdBeingDragged].dataset.colour = this.colourBeingDragged
         }
 
+      this.checkColumnForThree()
+      this. checkRowForThree()
+      //this.replaceSquares()
+
       },
 
+
+      replaceSquares(){
+        for(let i=0; i<55; i++){
+          if(this.squares[i + this.width].dataset.colour === 'bg-white'){
+            this.squares[i + this.width].dataset.colour = this.squares[i].dataset.colour
+            this.squares[i + this.width].classList.replace('bg-white', this.squares[i].dataset.colour)
+
+            this.squares[i].classList.replace( this.squares[i].dataset.colour, 'bg-white')
+            this.squares[i].dataset.colour = 'bg-white'
+
+            const firstRow = [0,1,2,3,4,5,6,7]
+            const isFirstRow = firstRow.includes(i)
+
+            if(isFirstRow && this.squares[i].dataset.colour === 'bg-white'){
+              let rand =  Math.floor(Math.random() * this.squareColours.length)
+              this.squares[i].classList.replace('bg-white', this.squareColours[rand] )
+              this.squares[i].dataset.colour = this.squareColours[rand]
+            }
+
+          }
+        }
+      },
 
       checkColumnForThree(){
         for(let i = 0; i<47; i++){
@@ -122,6 +147,7 @@
           const isBlank = this.squares[i].dataset.colour ==='bg-white'
 
           if(columnOfThree.every(index => this.squares[index].dataset.colour === decidedColour && !isBlank)){
+            this.score+=3
             columnOfThree.forEach(index => {
               this.squares[index].dataset.colour = 'bg-white'
               this.squares[index].classList.replace(decidedColour, 'bg-white')
@@ -141,6 +167,7 @@
           if (notValid.includes(i)) continue
 
           if(rowOfThree.every(index => this.squares[index].dataset.colour === decidedColour && !isBlank)) {
+            this.score+=3
             rowOfThree.forEach(index => {
               this.squares[index].dataset.colour = 'bg-white'
               this.squares[index].classList.replace(decidedColour, 'bg-white')
@@ -155,11 +182,11 @@
       this.createGrid()
       setTimeout(_ => this.loading = false, this.timeout)
 
-      setInterval(_ =>{
-        this.checkColumnForThree()
-        this. checkRowForThree()
-      },5000)
+      // this.checkColumnForThree()
+      // this. checkRowForThree()
 
+    //  this.replaceSquares()
+  
     }
   }
 
