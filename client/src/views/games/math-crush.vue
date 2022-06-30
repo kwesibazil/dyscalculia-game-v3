@@ -1,22 +1,21 @@
 <template>
-  <div class="h-100 "  ref="grid">
+  <div class="h-100 " ref="grid">
     <Loader v-if="loading"/>
-    <div v-else class="d-flex justify-content-center align-items-center w-100 h-100 px-3">
-      <draggable  class="grid h-75 " >
-        <transition-group>
-          <div v-for="(square, index) in 64" :id="index" :key="index" class="dragItem bg-primary rounded rounded-3 border d-flex justify-content-center align-items-center">
-            
-            <Square @drop="dragDrop" @dragstart="dragStart" @dragend="dragEnd"/>
-          
 
-          </div>
-        </transition-group>
-      </draggable>
+    <div v-else class="d-flex flex-column w-100 h-100">
+      <div class="bg-white shadow-sm p-3">Score: {{this.score}}</div>
+
+      <div class="d-flex justify-content-center my-5 w-100 flex-grow-1"> 
+        <draggable  class="grid h-75 px-3" >
+          <transition-group>
+            <div v-for="(square, index) in this.width*this.width" :id="index" :key="index" class="dragItem bg-primary rounded rounded-3 border d-flex justify-content-center align-items-center">
+              <Square @drop="dragDrop" @dragstart="dragStart" @dragend="dragEnd"/>
+            </div>
+          </transition-group>
+        </draggable>
+      </div>
+      
     </div>
-    
-
-
-
   </div>
 </template>
 
@@ -32,32 +31,25 @@
     name: 'math-crush',
     data(){
       return{
+        score: 0,
+        width: 8,
+        squares: [],
         timeout: 100,
         loading: true,
-        squares: [],
         colourBeingDragged: null,
         colourBeingReplaced: null,
-        squareIDBeingDragged: null,
-        squareIDBeingReplaced: null,
-
-        squareColours:
-        [
-          'square-red',
-          'square-pink',
-          'square-yellow',
-          'square-green',
-          'square-purple',
-          'square-orange'
-        ]
+        squareIdBeingDragged: null,
+        squareIdBeingReplaced: null,
+        squareColours:['square-red','square-pink','square-yellow','square-green','square-purple', 'square-orange']
       }
     },
     components:{
       Square,
       Loader,
       draggable: VueDraggableNext,
-    
     },
     methods: {
+
       createGrid(){
         setTimeout(_ =>{
             const grid = this.$refs.grid
@@ -78,54 +70,96 @@
       dragStart(e){
         const dragItem = e.target.closest('.dragItem')
         const square =  dragItem.firstElementChild
-        this.squareIDBeingDragged = parseInt(dragItem.getAttribute('id'))
+        this.squareIdBeingDragged = parseInt(dragItem.getAttribute('id'))
         this.colourBeingDragged =  square.dataset.colour
       },
-
-      // dragOver(){},
-      // dragEnter(){},
-      // dragLeave(){},
-
 
       dragDrop(e){
         const dragItem = e.target.closest('.dragItem')
         const square =  dragItem.firstElementChild
 
         this.colourBeingReplaced = square.dataset.colour
-        this.squareIDBeingReplaced = parseInt(dragItem.getAttribute('id'))
+        this.squareIdBeingReplaced = parseInt(dragItem.getAttribute('id'))
 
         square.classList.replace(this.colourBeingReplaced, this.colourBeingDragged) 
         square.dataset.colour = this.colourBeingDragged 
 
-        this.squares[this.squareIDBeingDragged].classList.replace( this.colourBeingDragged, this.colourBeingReplaced)
-        this.squares[this.squareIDBeingDragged].dataset.colour = this.colourBeingReplaced
+        this.squares[this.squareIdBeingDragged].classList.replace( this.colourBeingDragged, this.colourBeingReplaced)
+        this.squares[this.squareIdBeingDragged].dataset.colour = this.colourBeingReplaced
+      },
+
+      dragEnd(){
+        console.log('drag end');
+
+        let validMoves = [
+          this.squareIdBeingDragged -1,
+          this.squareIdBeingDragged +1,
+          this.squareIdBeingDragged - this.width,
+          this.squareIdBeingDragged + this.width
+        ]
+
+        let validMove = validMoves.includes(this.squareIdBeingReplaced)
+
+        if(this.squareIdBeingReplaced && validMove)
+          this.squareIdBeingReplaced = null
+        else if(this.squareIdBeingReplaced && !validMove){
+          this.squares[this.squareIdBeingReplaced].classList.replace(this.colourBeingDragged, this.colourBeingReplaced)
+          this.squares[this.squareIdBeingDragged].classList.replace(this.colourBeingReplaced, this.colourBeingDragged)
+          this.squares[this.squareIdBeingReplaced].dataset.colour = this.colourBeingReplaced
+          this.squares[this.squareIdBeingDragged].dataset.colour = this.colourBeingDragged
+        }else{
+          this.squares[this.squareIdBeingDragged].classList.replace(this.colourBeingReplaced, this.colourBeingDragged)
+          this.squares[this.squareIdBeingDragged].dataset.colour = this.colourBeingDragged
+        }
 
       },
 
 
+      checkColumnForThree(){
+        for(let i = 0; i<47; i++){
+          let columnOfThree = [i, i+this.width, i+this.width*2]
+          let decidedColour = this.squares[i].dataset.colour
+          const isBlank = this.squares[i].dataset.colour ==='bg-white'
 
-      dragEnd(e){
-        
-       // console.log('dragEnd');
+          if(columnOfThree.every(index => this.squares[index].dataset.colour === decidedColour && !isBlank)){
+            columnOfThree.forEach(index => {
+              this.squares[index].dataset.colour = 'bg-white'
+              this.squares[index].classList.replace(decidedColour, 'bg-white')
+            })
+          }
+        }
       },
 
 
+      checkRowForThree() {
+        for (let i = 0; i < 61; i ++) {
+          let rowOfThree = [i, i+1, i+2]
+          let decidedColour = this.squares[i].dataset.colour
+          const isBlank = this.squares[i].dataset.colour === 'bg-white'
+      
+          const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+          if (notValid.includes(i)) continue
 
-
-
-
-
-
-
-
-
-
+          if(rowOfThree.every(index => this.squares[index].dataset.colour === decidedColour && !isBlank)) {
+            rowOfThree.forEach(index => {
+              this.squares[index].dataset.colour = 'bg-white'
+              this.squares[index].classList.replace(decidedColour, 'bg-white')
+            })
+          }
+        }
+      }
 
     },
 
     mounted(){
       this.createGrid()
       setTimeout(_ => this.loading = false, this.timeout)
+
+      setInterval(_ =>{
+        this.checkColumnForThree()
+        this. checkRowForThree()
+      },5000)
+
     }
   }
 
@@ -150,7 +184,7 @@
 
    @media (min-width:992px) {
     .grid{
-      width: 55%; 
+      width: 40%; 
     }
   }
 
