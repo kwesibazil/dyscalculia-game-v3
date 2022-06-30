@@ -1,5 +1,5 @@
 <template>
-  <draggable  class="square border rounded rounded-3 h-75 w-75 ">
+  <draggable  class="square  rounded rounded-circle h-75 w-75 ">
     <div class="w-100 h-100">
     
     </div>

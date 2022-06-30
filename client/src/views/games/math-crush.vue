@@ -20,8 +20,6 @@
 </template>
 
 
-
-
 <script>
   import Loader from '@/components/utilities/game-progress.vue'
   import Square from '@/components/game/square.vue'
@@ -32,7 +30,7 @@
     data(){
       return{
         score: 0,
-        width: 8,
+        width: 5,
         squares: [],
         timeout: 100,
         loading: true,
@@ -40,7 +38,7 @@
         colourBeingReplaced: null,
         squareIdBeingDragged: null,
         squareIdBeingReplaced: null,
-        squareColours:['square-red','square-pink','square-yellow','square-green','square-purple', 'square-orange']
+        squareColours:['square-red','square-pink','square-green','square-purple', 'square-orange']
       }
     },
     components:{
@@ -110,16 +108,11 @@
           this.squares[this.squareIdBeingDragged].classList.replace(this.colourBeingReplaced, this.colourBeingDragged)
           this.squares[this.squareIdBeingDragged].dataset.colour = this.colourBeingDragged
         }
-
-      this.checkColumnForThree()
-      this. checkRowForThree()
-      //this.replaceSquares()
-
       },
 
 
       replaceSquares(){
-        for(let i=0; i<55; i++){
+        for(let i=0; i<19; i++){
           if(this.squares[i + this.width].dataset.colour === 'bg-white'){
             this.squares[i + this.width].dataset.colour = this.squares[i].dataset.colour
             this.squares[i + this.width].classList.replace('bg-white', this.squares[i].dataset.colour)
@@ -127,7 +120,7 @@
             this.squares[i].classList.replace( this.squares[i].dataset.colour, 'bg-white')
             this.squares[i].dataset.colour = 'bg-white'
 
-            const firstRow = [0,1,2,3,4,5,6,7]
+            const firstRow = [0,1,2,3,4,5]
             const isFirstRow = firstRow.includes(i)
 
             if(isFirstRow && this.squares[i].dataset.colour === 'bg-white'){
@@ -141,7 +134,7 @@
       },
 
       checkColumnForThree(){
-        for(let i = 0; i<47; i++){
+        for(let i = 0; i<14; i++){
           let columnOfThree = [i, i+this.width, i+this.width*2]
           let decidedColour = this.squares[i].dataset.colour
           const isBlank = this.squares[i].dataset.colour ==='bg-white'
@@ -158,12 +151,12 @@
 
 
       checkRowForThree() {
-        for (let i = 0; i < 61; i ++) {
+        for (let i = 0; i < 22; i ++) {
           let rowOfThree = [i, i+1, i+2]
           let decidedColour = this.squares[i].dataset.colour
           const isBlank = this.squares[i].dataset.colour === 'bg-white'
       
-          const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+          const notValid = [3, 4, 8, 9, 13, 14, 18,19]
           if (notValid.includes(i)) continue
 
           if(rowOfThree.every(index => this.squares[index].dataset.colour === decidedColour && !isBlank)) {
@@ -175,17 +168,19 @@
           }
         }
       }
-
     },
 
     mounted(){
       this.createGrid()
       setTimeout(_ => this.loading = false, this.timeout)
 
-      // this.checkColumnForThree()
-      // this. checkRowForThree()
+      setInterval(_ => {
+        this.replaceSquares()
+        this.checkColumnForThree()
+        this. checkRowForThree()
 
-    //  this.replaceSquares()
+      },200)
+
   
     }
   }
@@ -216,8 +211,8 @@
   }
 
   .grid div{
-    height: 12.5%;
-    width: 12.5%;
+    height: 20%;
+    width: 20%;
   }
 
 
