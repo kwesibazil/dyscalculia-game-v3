@@ -2,20 +2,24 @@
   <div class="h-100 " ref="grid">
     <Loader v-if="loading"/>
 
-    <div v-else class="d-flex flex-column w-100 h-100">
-      <div class="bg-white shadow-sm p-3">Score: {{this.score}}</div>
-
-      <div class="d-flex justify-content-center my-5 w-100 flex-grow-1"> 
-        <draggable  class="grid h-75 px-3" >
-          <transition-group>
-            <div v-for="(square, index) in this.width*this.width" :id="index" :key="index" class="dragItem bg-primary rounded rounded-3 border d-flex justify-content-center align-items-center">
-              <Square @drop="dragDrop" @dragstart="dragStart" @dragend="dragEnd"/>
-            </div>
-          </transition-group>
-        </draggable>
-      </div>
       
+    <div v-else class="grid-container d-flex flex-column align-items-center flex-grow-1 mb-2  "> 
+      <div class="d-flex justify-content-between align-items-center bg-white shadow-sm p-3 px-5 my-3 w-75">
+        <p class="mb-0">Score:
+          <span class="text-dark">{{this.score}}</span>
+          </p>
+        <p class="mb-0 text-danger">High Score:<span></span></p>
+        </div>
+      
+      <draggable  class="grid h-75 px-3 rounded rounded-3 my-auto"  >
+        <transition-group>
+          <div v-for="(square, index) in this.width*this.width" :id="index" :key="index" class="dragItem  d-flex justify-content-center align-items-center">
+            <Square @drop="dragDrop" @dragstart="dragStart" @dragend="dragEnd"/>
+          </div>
+        </transition-group>
+      </draggable>
     </div>
+    
   </div>
 </template>
 
@@ -32,7 +36,7 @@
         score: 0,
         width: 5,
         squares: [],
-        timeout: 100,
+        timeout: 4500,
         loading: true,
         colourBeingDragged: null,
         colourBeingReplaced: null,
@@ -50,17 +54,17 @@
 
       createGrid(){
         setTimeout(_ =>{
-            const grid = this.$refs.grid
-            const squares = grid.getElementsByClassName('square')
+          const grid = this.$refs.grid
+          const squares = grid.getElementsByClassName('square')
 
-            Array.from(squares).forEach(square =>{
-              const rand =  Math.floor(Math.random() * this.squareColours.length)
-              const colour = this.squareColours[rand]
-              square.classList.toggle(colour) 
-              square.setAttribute('draggable', true)
-              square.setAttribute('data-colour', colour)
-              this.squares.push(square)
-            })
+          Array.from(squares).forEach(square =>{
+            const rand =  Math.floor(Math.random() * this.squareColours.length)
+            const colour = this.squareColours[rand]
+            square.classList.toggle(colour) 
+            square.setAttribute('draggable', true)
+            square.setAttribute('data-colour', colour)
+            this.squares.push(square)
+          })
         }, this.timeout+50)
       },
 
@@ -87,7 +91,6 @@
       },
 
       dragEnd(){
-        console.log('drag end');
         let validMoves = [
           this.squareIdBeingDragged -1,
           this.squareIdBeingDragged +1,
@@ -108,11 +111,18 @@
           this.squares[this.squareIdBeingDragged].classList.replace(this.colourBeingReplaced, this.colourBeingDragged)
           this.squares[this.squareIdBeingDragged].dataset.colour = this.colourBeingDragged
         }
+
+          this.checkColumnForThree()
+          this. checkRowForThree()
+
+          setInterval(_ =>{
+            this.replaceSquares()
+
+          },100)
       },
 
-
       replaceSquares(){
-        for(let i=0; i<19; i++){
+        for(let i=0; i<20; i++){
           if(this.squares[i + this.width].dataset.colour === 'bg-white'){
             this.squares[i + this.width].dataset.colour = this.squares[i].dataset.colour
             this.squares[i + this.width].classList.replace('bg-white', this.squares[i].dataset.colour)
@@ -149,7 +159,6 @@
         }
       },
 
-
       checkRowForThree() {
         for (let i = 0; i < 22; i ++) {
           let rowOfThree = [i, i+1, i+2]
@@ -173,29 +182,27 @@
     mounted(){
       this.createGrid()
       setTimeout(_ => this.loading = false, this.timeout)
-
-      setInterval(_ => {
-        this.replaceSquares()
-        this.checkColumnForThree()
-        this. checkRowForThree()
-
-      },200)
-
-  
     }
   }
 
 </script>
 
 <style scoped>
+
+  .grid-container{
+    width: 100%;
+    height: 100%;
+    background-image: url('@/assets/img/jungle-background.webp');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
   .grid{
-    width: 100%; 
+    width: 95%; 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* background-image: url('@/assets/img/crush.jpg');
-    background-repeat: no-repeat;
-    background-size: cover; */
+    background-color: rgba(0, 0, 0, 0.4);
   }
 
   @media (min-width:575px) {
